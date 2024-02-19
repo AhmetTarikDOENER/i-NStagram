@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		457AF9982B83A7FC001D7954 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 457AF9972B83A7FC001D7954 /* GoogleService-Info.plist */; };
+		457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */; };
+		457AF99C2B83B5B2001D7954 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99B2B83B5B2001D7954 /* Extensions.swift */; };
+		457AF99E2B83BAC5001D7954 /* iNSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99D2B83BAC5001D7954 /* iNSTextField.swift */; };
 		45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C22B81091100DE4D84 /* AppDelegate.swift */; };
 		45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */; };
 		45D5E6C72B81091100DE4D84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C62B81091100DE4D84 /* HomeViewController.swift */; };
@@ -41,6 +44,9 @@
 
 /* Begin PBXFileReference section */
 		457AF9972B83A7FC001D7954 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
+		457AF99B2B83B5B2001D7954 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		457AF99D2B83BAC5001D7954 /* iNSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSTextField.swift; sourceTree = "<group>"; };
 		45D5E6BF2B81091100DE4D84 /* iNStagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNStagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5E6C22B81091100DE4D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */,
+				457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */,
+				457AF99D2B83BAC5001D7954 /* iNSTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,6 +175,7 @@
 			children = (
 				45D5E6C22B81091100DE4D84 /* AppDelegate.swift */,
 				45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */,
+				457AF99B2B83B5B2001D7954 /* Extensions.swift */,
 				45D5E6CB2B81091200DE4D84 /* Assets.xcassets */,
 				457AF9972B83A7FC001D7954 /* GoogleService-Info.plist */,
 			);
@@ -287,17 +296,20 @@
 				45D5E6FA2B8115E300DE4D84 /* PostViewController.swift in Sources */,
 				45D5E6E72B81154000DE4D84 /* ExploreViewController.swift in Sources */,
 				45D5E6E92B81155000DE4D84 /* CameraViewController.swift in Sources */,
+				457AF99E2B83BAC5001D7954 /* iNSTextField.swift in Sources */,
 				45D5E70C2B81168800DE4D84 /* AnalyticsManager.swift in Sources */,
 				45D5E6C72B81091100DE4D84 /* HomeViewController.swift in Sources */,
 				45D5E6F42B8115B800DE4D84 /* SignUpViewController.swift in Sources */,
 				45D5E6FE2B81161A00DE4D84 /* User.swift in Sources */,
 				45D5E6EB2B81155A00DE4D84 /* NotificationsViewController.swift in Sources */,
+				457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */,
 				45D5E6FC2B8115F000DE4D84 /* SettingsViewController.swift in Sources */,
 				45D5E7082B81166400DE4D84 /* DatabaseManager.swift in Sources */,
 				45D5E7022B81162D00DE4D84 /* Relationship.swift in Sources */,
 				45D5E7002B81162300DE4D84 /* Post.swift in Sources */,
 				45D5E7062B81165500DE4D84 /* AuthManager.swift in Sources */,
 				45D5E6F22B8115A900DE4D84 /* SignInViewController.swift in Sources */,
+				457AF99C2B83B5B2001D7954 /* Extensions.swift in Sources */,
 				45D5E6ED2B81156600DE4D84 /* ProfileViewController.swift in Sources */,
 				45D5E70E2B81169100DE4D84 /* HapticsManager.swift in Sources */,
 				45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */,
