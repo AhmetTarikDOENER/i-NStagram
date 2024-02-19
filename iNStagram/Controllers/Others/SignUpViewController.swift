@@ -89,6 +89,7 @@ class SignUpViewController: UIViewController {
         emailField.delegate = self
         passwordField.delegate = self
         addButtonActions()
+        addAvatarGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -139,6 +140,43 @@ class SignUpViewController: UIViewController {
     }
     
     //MARK: - Private
+    private func addAvatarGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapAvatar))
+        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc private func didTapAvatar() {
+        let actionSheet = UIAlertController(
+            title: "Profile Picture",
+            message: "Set a picture to help your friends to find you.",
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: {
+            [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .camera
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: {
+            [weak self] _ in
+            DispatchQueue.main.async {
+                let picker = UIImagePickerController()
+                picker.sourceType = .photoLibrary
+                picker.allowsEditing = true
+                picker.delegate = self
+                self?.present(picker, animated: true)
+            }
+        }))
+        
+        present(actionSheet, animated: true)
+    }
+    
     private func addButtonActions() {
         signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
         termsOfUseButton.addTarget(self, action: #selector(didTapTermsOfUse), for: .touchUpInside)
@@ -149,13 +187,23 @@ class SignUpViewController: UIViewController {
         usernameField.resignFirstResponder()
         passwordField.resignFirstResponder()
         guard let email = emailField.text, let password = passwordField.text,
+              let username = usernameField.text,
               !email.trimmingCharacters(in: .whitespaces).isEmpty,
               !password.trimmingCharacters(in: .whitespaces).isEmpty,
-              password.count >= 8 else {
-            
+              !username.trimmingCharacters(in: .whitespaces).isEmpty,
+              username.trimmingCharacters(in: .alphanumerics).isEmpty,
+              password.count >= 8,
+              username.count >= 2 else {
+            let alert = UIAlertController(
+                title: "Woops!",
+                message: "Please make sure to fill all field and have a password longers than 8 characters.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            present(alert, animated: true)
             return
         }
-        // Sign In
+        // Sign Up
     }
 
     @objc private func didTapTermsOfUse() {
@@ -175,6 +223,7 @@ class SignUpViewController: UIViewController {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameField {
@@ -186,5 +235,20 @@ extension SignUpViewController: UITextFieldDelegate {
             didTapSignUp()
         }
         return true
+    }
+}
+
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let avatar = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+        avatarImageView.image = avatar
     }
 }
