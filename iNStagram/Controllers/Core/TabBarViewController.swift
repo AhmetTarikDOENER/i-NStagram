@@ -12,17 +12,30 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let email = UserDefaults.standard.string(forKey: "email"),
+              let username = UserDefaults.standard.string(forKey: "username") else {
+            return
+        }
+        let currentSignedUser = User(
+            username: username,
+            email: email
+        )
+        
         let home = HomeViewController()
         let explore = ExploreViewController()
         let camera = CameraViewController()
         let notifications = NotificationsViewController()
-        let profile = ProfileViewController()
+        let profile = ProfileViewController(user: currentSignedUser)
         
         let navVC1 = UINavigationController(rootViewController: home)
         let navVC2 = UINavigationController(rootViewController: explore)
         let navVC3 = UINavigationController(rootViewController: camera)
         let navVC4 = UINavigationController(rootViewController: notifications)
         let navVC5 = UINavigationController(rootViewController: profile)
+        
+        for navControllers in [navVC1, navVC2, navVC3, navVC3, navVC4, navVC5] {
+            navControllers.navigationBar.tintColor = .label
+        }
         
         navVC1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
         navVC2.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "safari"), tag: 2)
