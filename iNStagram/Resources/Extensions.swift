@@ -51,3 +51,17 @@ extension Encodable {
         return json
     }
 }
+
+//MARK: - Decodable Protocol
+extension Decodable {
+    init?(with dictionary: [String: Any]) {
+        guard let data = try? JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) else {
+            return nil
+        }
+        // Self.self means whatever object that conforms decodable
+        guard let result = try? JSONDecoder().decode(Self.self, from: data) else {
+            return nil
+        }
+        self = result
+    }
+}

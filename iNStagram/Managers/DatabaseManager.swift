@@ -23,4 +23,17 @@ final class DatabaseManager {
             completion(error == nil)
         }
     }
+    
+    public func findUser(with email: String, completion: @escaping (User?) -> Void) {
+        let reference = database.collection("users")
+        reference.getDocuments {
+            snapshot, error in
+            guard let users = snapshot?.documents.compactMap { User(with: $0.data()) }, error == nil else {
+                completion(nil)
+                return
+            }
+            let user = users.first(where: { $0.email == email })
+            completion(user)
+        }
+    }
 }
