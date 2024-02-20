@@ -10,6 +10,8 @@ import SafariServices
 
 class SignUpViewController: UIViewController {
     
+    public var completion: (() -> Void)?
+    
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .lightGray
@@ -204,6 +206,25 @@ class SignUpViewController: UIViewController {
             return
         }
         // Sign Up
+        AuthManager.shared.signUp(
+            email: email,
+            username: username,
+            password: password,
+            profilePictureData: avatarImageView.image?.pngData()
+        ) {
+            [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let user):
+                    UserDefaults.standard.setValue(user.email, forKey: "email")
+                    UserDefaults.standard.setValue(user.username, forKey: "username")
+                    self?.navigationController?.popToRootViewController(animated: true)
+                    self?.completion?()
+                case .failure(let error):
+                    print("\n\nSign Up Error: \(error)")
+                }
+            }
+        }
     }
 
     @objc private func didTapTermsOfUse() {
