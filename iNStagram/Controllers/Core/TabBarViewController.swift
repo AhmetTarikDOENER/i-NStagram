@@ -16,10 +16,7 @@ class TabBarViewController: UITabBarController {
               let username = UserDefaults.standard.string(forKey: "username") else {
             return
         }
-        let currentSignedUser = User(
-            username: username,
-            email: email
-        )
+        let currentSignedUser = User(username: username, email: email)
         
         let home = HomeViewController()
         let explore = ExploreViewController()
