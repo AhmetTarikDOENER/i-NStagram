@@ -43,10 +43,10 @@ class HomeViewController: UIViewController {
             .poster(
                 viewModel: .init(
                     username: "ahmettarik",
-                    profilePictureURL: URL(string: "https://commons.wikimedia.org/wiki/File:Hallstatt_1.jpg")!
+                    profilePictureURL: URL(string: "https://picsum.photos/300/300?random=3")!
                 )
             ),
-            .post(viewModel: .init(postURL: URL(string: "https://de.wikipedia.org/wiki/Liste_von_Sehensw%C3%BCrdigkeiten_Wiens#/media/Datei:Wien_-_Burgtheater.JPG")!)),
+            .post(viewModel: .init(postURL: URL(string: "https://picsum.photos/800/800?random=12")!)),
             .action(viewModel: .init(isLiked: true)),
             .likeCount(viewModel: .init(likers: ["ashley"])),
             .caption(
@@ -81,7 +81,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 fatalError()
             }
             cell.configure(with: viewModel)
-            cell.contentView.backgroundColor = colors[indexPath.row]
             return cell
         case .post(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath) as? PostCollectionViewCell else {
