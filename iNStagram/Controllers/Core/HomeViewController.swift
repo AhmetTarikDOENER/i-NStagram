@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Instagram"
+        title = "i-NStagram"
         view.backgroundColor = .systemBackground
         configureCollectionView()
         fetchPosts()
@@ -71,30 +71,35 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.identifier, for: indexPath) as? PosterCollectionViewCell else {
                 fatalError()
             }
+            cell.delegate = self
             cell.configure(with: viewModel)
             return cell
         case .post(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath) as? PostCollectionViewCell else {
                 fatalError()
             }
+            cell.delegate = self
             cell.configure(with: viewModel)
             return cell
         case .action(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostActionsCollectionViewCell.identifier, for: indexPath) as? PostActionsCollectionViewCell else {
                 fatalError()
             }
+            cell.delegate = self
             cell.configure(with: viewModel)
             return cell
         case .likeCount(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostLikesCollectionViewCell.identifier, for: indexPath) as? PostLikesCollectionViewCell else {
                 fatalError()
             }
+            cell.delegate = self
             cell.configure(with: viewModel)
             return cell
         case .caption(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCaptionCollectionViewCell.identifier, for: indexPath) as? PostCaptionCollectionViewCell else {
                 fatalError()
             }
+            cell.delegate = self
             cell.configure(with: viewModel)
             return cell
         case .timestamp(let viewModel):
@@ -206,5 +211,73 @@ extension HomeViewController {
             forCellWithReuseIdentifier: PostDateTimeCollectionViewCell.identifier
         )
         self.collectionView = collectionView
+    }
+}
+
+//MARK: - PosterCollectionViewCellDelegate
+extension HomeViewController: PosterCollectionViewCellDelegate {
+    func posterCollectionViewCellDidTapMore(_ cell: PosterCollectionViewCell) {
+        let actionSheet = UIAlertController(
+            title: "Post Actions",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Share Post", style: .default, handler: {
+            _ in
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: {
+            _ in
+            
+        }))
+        present(actionSheet, animated: true)
+    }
+    
+    func posterCollectionViewCellDidTapUsername(_ cell: PosterCollectionViewCell) {
+        let vc = ProfileViewController(user: User(username: "ahmettarik", email: "ahmettarik@gmail.com"))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: - PostCollectionViewCellDelegate
+extension HomeViewController: PostCollectionViewCellDelegate {
+    func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell) {
+        print("Did tap to like")
+    }
+}
+
+extension HomeViewController: PostActionsCollectionViewCellDelegate {
+    func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool) {
+        // Call database to update state
+    }
+    
+    func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell) {
+        let vc = PostViewController()
+        vc.title = "Post"
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell) {
+        let vc = UIActivityViewController(
+            activityItems: ["Sharing from Instagram"],
+            applicationActivities: []
+        )
+        present(vc, animated: true)
+    }
+}
+//MARK: - PostLikesCollectionViewCellDelegate
+extension HomeViewController: PostLikesCollectionViewCellDelegate {
+    func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell) {
+        let vc = ListViewController()
+        vc.title = "Liked By"
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: - PostCaptionCollectionViewCellDelegate
+extension HomeViewController: PostCaptionCollectionViewCellDelegate {
+    func postCaptionCollectionViewCellDidTapCaption(_ cell: PostCaptionCollectionViewCell) {
+        print("Tapped on caption")
     }
 }
