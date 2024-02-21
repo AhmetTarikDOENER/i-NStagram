@@ -18,6 +18,7 @@
 		45BB0FD82B863CBD00F485ED /* PostLikesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD72B863CBD00F485ED /* PostLikesCollectionViewCell.swift */; };
 		45BB0FDA2B863CD800F485ED /* PostCaptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */; };
 		45BB0FDC2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */; };
+		45BB0FDE2B868FED00F485ED /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDD2B868FED00F485ED /* PostEditViewController.swift */; };
 		45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C22B81091100DE4D84 /* AppDelegate.swift */; };
 		45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */; };
 		45D5E6C72B81091100DE4D84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C62B81091100DE4D84 /* HomeViewController.swift */; };
@@ -67,6 +68,7 @@
 		45BB0FD72B863CBD00F485ED /* PostLikesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDateTimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FDD2B868FED00F485ED /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
 		45D5E6BF2B81091100DE4D84 /* iNStagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNStagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5E6C22B81091100DE4D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				45D5E6F72B8115D700DE4D84 /* ListViewController.swift */,
 				45D5E6F92B8115E300DE4D84 /* PostViewController.swift */,
 				45D5E6FB2B8115F000DE4D84 /* SettingsViewController.swift */,
+				45BB0FDD2B868FED00F485ED /* PostEditViewController.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				45D5E7082B81166400DE4D84 /* DatabaseManager.swift in Sources */,
 				45D5E7022B81162D00DE4D84 /* Relationship.swift in Sources */,
 				45D5E7002B81162300DE4D84 /* Post.swift in Sources */,
+				45BB0FDE2B868FED00F485ED /* PostEditViewController.swift in Sources */,
 				45F87DFC2B8548570092EC18 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				45D5E7062B81165500DE4D84 /* AuthManager.swift in Sources */,
 				45D5E6F22B8115A900DE4D84 /* SignInViewController.swift in Sources */,
