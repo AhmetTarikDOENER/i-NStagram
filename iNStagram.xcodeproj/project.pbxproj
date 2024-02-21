@@ -11,6 +11,13 @@
 		457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */; };
 		457AF99C2B83B5B2001D7954 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99B2B83B5B2001D7954 /* Extensions.swift */; };
 		457AF99E2B83BAC5001D7954 /* iNSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99D2B83BAC5001D7954 /* iNSTextField.swift */; };
+		45BB0FCF2B863A4400F485ED /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 45BB0FCE2B863A4400F485ED /* SDWebImage */; };
+		45BB0FD22B863BF600F485ED /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD12B863BF600F485ED /* PosterCollectionViewCell.swift */; };
+		45BB0FD42B863C6500F485ED /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD32B863C6500F485ED /* PostCollectionViewCell.swift */; };
+		45BB0FD62B863C8700F485ED /* PostActionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD52B863C8700F485ED /* PostActionsCollectionViewCell.swift */; };
+		45BB0FD82B863CBD00F485ED /* PostLikesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD72B863CBD00F485ED /* PostLikesCollectionViewCell.swift */; };
+		45BB0FDA2B863CD800F485ED /* PostCaptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */; };
+		45BB0FDC2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */; };
 		45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C22B81091100DE4D84 /* AppDelegate.swift */; };
 		45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */; };
 		45D5E6C72B81091100DE4D84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C62B81091100DE4D84 /* HomeViewController.swift */; };
@@ -54,6 +61,12 @@
 		457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		457AF99B2B83B5B2001D7954 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		457AF99D2B83BAC5001D7954 /* iNSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSTextField.swift; sourceTree = "<group>"; };
+		45BB0FD12B863BF600F485ED /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FD32B863C6500F485ED /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FD52B863C8700F485ED /* PostActionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FD72B863CBD00F485ED /* PostLikesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDateTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		45D5E6BF2B81091100DE4D84 /* iNStagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNStagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5E6C22B81091100DE4D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,12 +112,26 @@
 				45D5E6DE2B81134300DE4D84 /* FirebaseStorage in Frameworks */,
 				45D5E6DA2B81134300DE4D84 /* FirebaseAuth in Frameworks */,
 				45D5E6DC2B81134300DE4D84 /* FirebaseFirestore in Frameworks */,
+				45BB0FCF2B863A4400F485ED /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45BB0FD02B863BE300F485ED /* HomeCells */ = {
+			isa = PBXGroup;
+			children = (
+				45BB0FD12B863BF600F485ED /* PosterCollectionViewCell.swift */,
+				45BB0FD32B863C6500F485ED /* PostCollectionViewCell.swift */,
+				45BB0FD52B863C8700F485ED /* PostActionsCollectionViewCell.swift */,
+				45BB0FD72B863CBD00F485ED /* PostLikesCollectionViewCell.swift */,
+				45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */,
+				45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */,
+			);
+			path = HomeCells;
+			sourceTree = "<group>";
+		};
 		45D5E6B62B81091100DE4D84 = {
 			isa = PBXGroup;
 			children = (
@@ -147,9 +174,10 @@
 		45D5E6E02B81137D00DE4D84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */,
+				45BB0FD02B863BE300F485ED /* HomeCells */,
 				457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */,
 				457AF99D2B83BAC5001D7954 /* iNSTextField.swift */,
+				45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,6 +278,7 @@
 				45D5E6D92B81134300DE4D84 /* FirebaseAuth */,
 				45D5E6DB2B81134300DE4D84 /* FirebaseFirestore */,
 				45D5E6DD2B81134300DE4D84 /* FirebaseStorage */,
+				45BB0FCE2B863A4400F485ED /* SDWebImage */,
 			);
 			productName = iNStagram;
 			productReference = 45D5E6BF2B81091100DE4D84 /* iNStagram.app */;
@@ -281,6 +310,7 @@
 			mainGroup = 45D5E6B62B81091100DE4D84;
 			packageReferences = (
 				45D5E6D62B81134300DE4D84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				45BB0FCD2B863A4300F485ED /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 45D5E6C02B81091100DE4D84 /* Products */;
 			projectDirPath = "";
@@ -310,10 +340,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				45D5E6F62B8115C900DE4D84 /* CaptionViewController.swift in Sources */,
+				45BB0FD82B863CBD00F485ED /* PostLikesCollectionViewCell.swift in Sources */,
 				45D5E6EF2B81158D00DE4D84 /* TabBarViewController.swift in Sources */,
 				45D5E7042B81163A00DE4D84 /* Notification.swift in Sources */,
 				45D5E70A2B81167200DE4D84 /* StorageManager.swift in Sources */,
 				45D5E6F82B8115D700DE4D84 /* ListViewController.swift in Sources */,
+				45BB0FD42B863C6500F485ED /* PostCollectionViewCell.swift in Sources */,
 				45D5E6FA2B8115E300DE4D84 /* PostViewController.swift in Sources */,
 				45D5E6E72B81154000DE4D84 /* ExploreViewController.swift in Sources */,
 				45D5E6E92B81155000DE4D84 /* CameraViewController.swift in Sources */,
@@ -339,9 +371,13 @@
 				457AF99C2B83B5B2001D7954 /* Extensions.swift in Sources */,
 				45F87DF82B8547EB0092EC18 /* PostActionsCollectionViewCellViewModel.swift in Sources */,
 				45D5E6ED2B81156600DE4D84 /* ProfileViewController.swift in Sources */,
+				45BB0FDC2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift in Sources */,
 				45D5E70E2B81169100DE4D84 /* HapticsManager.swift in Sources */,
+				45BB0FD22B863BF600F485ED /* PosterCollectionViewCell.swift in Sources */,
 				45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */,
+				45BB0FD62B863C8700F485ED /* PostActionsCollectionViewCell.swift in Sources */,
 				45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */,
+				45BB0FDA2B863CD800F485ED /* PostCaptionCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +600,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		45BB0FCD2B863A4300F485ED /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.11;
+			};
+		};
 		45D5E6D62B81134300DE4D84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -575,6 +619,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		45BB0FCE2B863A4400F485ED /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45BB0FCD2B863A4300F485ED /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		45D5E6D72B81134300DE4D84 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 45D5E6D62B81134300DE4D84 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
