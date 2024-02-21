@@ -136,7 +136,14 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         guard let data = photo.fileDataRepresentation(),
         let image = UIImage(data: data) else { return }
         captureSession?.stopRunning()
-        let vc = PostEditViewController(image: image)
+        guard let resizedImage = image.sd_resizedImage(
+            with: CGSize(
+                width: 640,
+                height: 640
+            ),
+            scaleMode: .aspectFill
+        ) else { return }
+        let vc = PostEditViewController(image: resizedImage)
         navigationController?.pushViewController(vc, animated: false)
     }
 }
