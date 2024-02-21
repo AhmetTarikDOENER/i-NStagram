@@ -19,6 +19,7 @@
 		45BB0FDA2B863CD800F485ED /* PostCaptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */; };
 		45BB0FDC2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */; };
 		45BB0FDE2B868FED00F485ED /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDD2B868FED00F485ED /* PostEditViewController.swift */; };
+		45BB0FE02B8697C300F485ED /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FDF2B8697C300F485ED /* PhotoCollectionViewCell.swift */; };
 		45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C22B81091100DE4D84 /* AppDelegate.swift */; };
 		45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */; };
 		45D5E6C72B81091100DE4D84 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D5E6C62B81091100DE4D84 /* HomeViewController.swift */; };
@@ -69,6 +70,7 @@
 		45BB0FD92B863CD800F485ED /* PostCaptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FDB2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDateTimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FDD2B868FED00F485ED /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
+		45BB0FDF2B8697C300F485ED /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		45D5E6BF2B81091100DE4D84 /* iNStagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNStagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45D5E6C22B81091100DE4D84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45D5E6C42B81091100DE4D84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */,
 				457AF99D2B83BAC5001D7954 /* iNSTextField.swift */,
 				45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */,
+				45BB0FDF2B8697C300F485ED /* PhotoCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				45D5E6ED2B81156600DE4D84 /* ProfileViewController.swift in Sources */,
 				45BB0FDC2B863CF100F485ED /* PostDateTimeCollectionViewCell.swift in Sources */,
 				45D5E70E2B81169100DE4D84 /* HapticsManager.swift in Sources */,
+				45BB0FE02B8697C300F485ED /* PhotoCollectionViewCell.swift in Sources */,
 				45BB0FD22B863BF600F485ED /* PosterCollectionViewCell.swift in Sources */,
 				45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */,
 				45BB0FD62B863C8700F485ED /* PostActionsCollectionViewCell.swift in Sources */,
