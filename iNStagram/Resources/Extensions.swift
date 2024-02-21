@@ -65,3 +65,24 @@ extension Decodable {
         self = result
     }
 }
+
+//MARK: - DateFormatter
+extension DateFormatter {
+    static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        
+        return formatter
+    }()
+}
+
+//MARK: - String
+extension String {
+    static func date(from date: Date) -> String? {
+        let formatter = DateFormatter.formatter
+        let formattedString = formatter.string(from: date)
+        
+        return formattedString
+    }
+}
