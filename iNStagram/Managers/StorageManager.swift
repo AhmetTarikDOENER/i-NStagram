@@ -18,12 +18,16 @@ final class StorageManager {
     public func uploadPost(
         data: Data?,
         id: String,
-        completion: @escaping (Bool) -> Void
+        completion: @escaping (URL?) -> Void
     ) {
         guard let data, let username = UserDefaults.standard.string(forKey: "username") else { return }
-        storage.child("\(username)/posts/\(id).png").putData(data) {
+        let reference = storage.child("\(username)/posts/\(id).png")
+        reference.putData(data) {
             _, error in
-            completion(error == nil)
+            reference.downloadURL {
+                url, _ in
+                completion(url)
+            }
         }
     }
     

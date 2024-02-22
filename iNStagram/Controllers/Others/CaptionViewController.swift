@@ -86,12 +86,13 @@ class CaptionViewController: UIViewController {
         guard let newPostID = createNewPostID(), let dateString = String.date(from: Date()) else { return }
         // Upload post
         StorageManager.shared.uploadPost(data: image.pngData(), id: newPostID) {
-            success in
-            guard success else { return }
+            newPostDownloadURL in
+            guard let url = newPostDownloadURL else { return }
             let newPost = Post(
                 id: newPostID,
                 caption: caption,
-                postedDate: dateString,
+                postedDate: dateString, 
+                postURLString: url.absoluteString,
                 likers: []
             )
             // Update database

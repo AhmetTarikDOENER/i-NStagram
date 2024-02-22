@@ -67,32 +67,30 @@ class HomeViewController: UIViewController {
         username: String,
         completion: @escaping (Bool) -> Void
     ) {
-        StorageManager.shared.downloadURL(for: model) {
-            postURL in
-            StorageManager.shared.profilePictureURL(for: username) {
-                [weak self] profilePictureURL in
-                guard let postUrl = postURL, let profilePhotoURL = profilePictureURL else { return }
-                let postData: [HomeFeedCellType] = [
-                    .poster(
-                        viewModel: .init(
-                            username: username,
-                            profilePictureURL: profilePhotoURL
-                        )
-                    ),
-                    .post(viewModel: .init(postURL: postUrl)),
-                    .action(viewModel: .init(isLiked: false)),
-                    .likeCount(viewModel: .init(likers: [])),
-                    .caption(
-                        viewModel: .init(
-                            username: username,
-                            caption: model.caption
-                        )
-                    ),
-                    .timestamp(viewModel: .init(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()))
-                ]
-                self?.viewModels.append(postData)
-                completion(true)
-            }
+        StorageManager.shared.profilePictureURL(for: username) {
+            [weak self] profilePictureURL in
+            guard let postUrl = URL(string: model.postURLString),
+                  let profilePhotoURL = profilePictureURL else { return }
+            let postData: [HomeFeedCellType] = [
+                .poster(
+                    viewModel: .init(
+                        username: username,
+                        profilePictureURL: profilePhotoURL
+                    )
+                ),
+                .post(viewModel: .init(postURL: postUrl)),
+                .action(viewModel: .init(isLiked: false)),
+                .likeCount(viewModel: .init(likers: [])),
+                .caption(
+                    viewModel: .init(
+                        username: username,
+                        caption: model.caption
+                    )
+                ),
+                .timestamp(viewModel: .init(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()))
+            ]
+            self?.viewModels.append(postData)
+            completion(true)
         }
     }
 }
