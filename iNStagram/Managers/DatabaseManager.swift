@@ -15,6 +15,24 @@ final class DatabaseManager {
     
     let database = Firestore.firestore()
     
+    public func searchUsers(
+        with usernamePrefix: String,
+        completion: @escaping ([User]) -> Void
+    ) {
+        let reference = database.collection("users")
+        reference.getDocuments {
+            snapshot, error in
+            guard let users = snapshot?.documents.compactMap ({ User(with: $0.data()) }), error == nil else {
+                completion([])
+                return
+            }
+            let subset = users.filter {
+                $0.username.lowercased().hasPrefix(usernamePrefix.lowercased())
+            }
+            completion(subset)
+        }
+    }
+    
     public func getPosts(
         for username: String,
         completion: @escaping (Result<[Post], Error>) -> Void
