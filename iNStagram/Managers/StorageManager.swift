@@ -15,6 +15,18 @@ final class StorageManager {
     
     private let storage = Storage.storage().reference()
     
+    public func uploadPost(
+        data: Data?,
+        id: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let data, let username = UserDefaults.standard.string(forKey: "username") else { return }
+        storage.child("\(username)/posts/\(id).png").putData(data) {
+            _, error in
+            completion(error == nil)
+        }
+    }
+    
     public func uploadProfilePicture(
         username: String,
         data: Data?,

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Post: Codable {
+    let id: String
+    let caption: String
+    let postedDate: String
+    var likers: [String]
+}
