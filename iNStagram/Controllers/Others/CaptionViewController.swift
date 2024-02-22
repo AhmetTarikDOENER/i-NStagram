@@ -101,6 +101,7 @@ class CaptionViewController: UIViewController {
                     return
                 }
                 DispatchQueue.main.async {
+                    self?.tabBarController?.tabBar.isHidden = false
                     self?.tabBarController?.selectedIndex = 0
                     self?.navigationController?.popToRootViewController(animated: false)
                 }

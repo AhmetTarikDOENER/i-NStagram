@@ -27,6 +27,24 @@ final class StorageManager {
         }
     }
     
+    public func downloadURL(for post: Post, completion: @escaping (URL?) -> Void) {
+        guard let reference = post.storageReference else { 
+            completion(nil)
+            return
+        }
+        storage.child(reference).downloadURL {
+            url, error in
+            completion(url)
+        }
+    }
+    
+    public func profilePictureURL(for username: String, completion: @escaping (URL?) -> Void) {
+        storage.child("\(username)/profile_picture.png").downloadURL {
+            url, error in
+            completion(url)
+        }
+    }
+    
     public func uploadProfilePicture(
         username: String,
         data: Data?,

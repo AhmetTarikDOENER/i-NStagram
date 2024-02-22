@@ -29,27 +29,71 @@ class HomeViewController: UIViewController {
     
     //MARK: - Private
     private func fetchPosts() {
-        // mock data
-        let postData: [HomeFeedCellType] = [
-            .poster(
-                viewModel: .init(
-                    username: "ahmettarik",
-                    profilePictureURL: URL(string: "https://picsum.photos/300/300?random=3")!
-                )
-            ),
-            .post(viewModel: .init(postURL: URL(string: "https://picsum.photos/800/800?random=12")!)),
-            .action(viewModel: .init(isLiked: true)),
-            .likeCount(viewModel: .init(likers: ["ashley"])),
-            .caption(
-                viewModel: .init(
-                    username: "ahmettarik",
-                    caption: "This is an awesome first post to shared."
-                )
-            ),
-            .timestamp(viewModel: .init(date: Date()))
-        ]
-        viewModels.append(postData)
-        collectionView?.reloadData()
+        guard let username = UserDefaults.standard.string(forKey: "username") else { return }
+        DatabaseManager.shared.getPosts(for: username) {
+            [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let posts):
+                    let group = DispatchGroup()
+                    posts.forEach {
+                        model in
+                        group.enter()
+                        self?.createViewModel(
+                            model: model,
+                            username: username,
+                            completion: {
+                            success in
+                            defer {
+                                group.leave()
+                            }
+                            if !success {
+                                
+                            }
+                        })
+                    }
+                    group.notify(queue: .main) {
+                        self?.collectionView?.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func createViewModel(
+        model: Post,
+        username: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        StorageManager.shared.downloadURL(for: model) {
+            postURL in
+            StorageManager.shared.profilePictureURL(for: username) {
+                [weak self] profilePictureURL in
+                guard let postUrl = postURL, let profilePhotoURL = profilePictureURL else { return }
+                let postData: [HomeFeedCellType] = [
+                    .poster(
+                        viewModel: .init(
+                            username: username,
+                            profilePictureURL: profilePhotoURL
+                        )
+                    ),
+                    .post(viewModel: .init(postURL: postUrl)),
+                    .action(viewModel: .init(isLiked: false)),
+                    .likeCount(viewModel: .init(likers: [])),
+                    .caption(
+                        viewModel: .init(
+                            username: username,
+                            caption: model.caption
+                        )
+                    ),
+                    .timestamp(viewModel: .init(date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()))
+                ]
+                self?.viewModels.append(postData)
+                completion(true)
+            }
+        }
     }
 }
 
