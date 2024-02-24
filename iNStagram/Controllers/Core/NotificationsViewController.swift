@@ -8,6 +8,8 @@
 import UIKit
 
 class NotificationsViewController: UIViewController {
+    
+    private var viewModels: [NotificationCellType] = []
 
     private let noActivityLabel: UILabel = {
         let label = UILabel()
@@ -20,7 +22,7 @@ class NotificationsViewController: UIViewController {
     }()
     
     private let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.isHidden = true
         tableView.register(LikeNotificationTableViewCell.self, forCellReuseIdentifier: LikeNotificationTableViewCell.identifier)
         tableView.register(CommentNotificationTableViewCell.self, forCellReuseIdentifier: CommentNotificationTableViewCell.identifier)
@@ -29,6 +31,7 @@ class NotificationsViewController: UIViewController {
         return tableView
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Notifications"
@@ -37,6 +40,7 @@ class NotificationsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         fetchNotifications()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,17 +55,72 @@ class NotificationsViewController: UIViewController {
             notification in
             
         }
-        noActivityLabel.isHidden = false
+        noActivityLabel.isHidden = true
+        mockData()
+    }
+    
+    private func mockData() {
+        tableView.isHidden = false
+        guard let postURL = URL(string: "https://picsum.photos/200/300?random=8") else { return }
+        guard let iconURL = URL(string: "https://picsum.photos/200/300?random=14") else { return }
+        viewModels = [
+            .like(
+                viewModel: .init(
+                    username: "kanyewest",
+                    profilePictureURL: iconURL,
+                    postURL: postURL
+                )
+            ),
+            .comment(
+                viewModel: .init(
+                    username: "arianagrande",
+                    profilePictureURL: iconURL,
+                    postURL: postURL
+                )
+            ),
+            .follow(
+                viewModel: .init(
+                    username: "willsmith",
+                    profilePictureURL: iconURL,
+                    isCurrentUserFollowing: true
+                )
+            )
+        ]
+        tableView.reloadData()
     }
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension NotificationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        return cell
+        let cellType = viewModels[indexPath.row]
+        switch cellType {
+        case .follow(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowNotificationTableViewCell.identifier, for: indexPath) as? FollowNotificationTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .like(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeNotificationTableViewCell.identifier, for: indexPath) as? LikeNotificationTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .comment(let viewModel):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentNotificationTableViewCell.identifier, for: indexPath) as? CommentNotificationTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: viewModel)
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        65
     }
 }
