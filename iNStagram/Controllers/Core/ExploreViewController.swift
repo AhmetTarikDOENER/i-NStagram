@@ -11,6 +11,74 @@ class ExploreViewController: UIViewController {
 
     private let searchViewController = UISearchController(searchResultsController: SearchResultsViewController())
     
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewCompositionalLayout {
+            index, _ -> NSCollectionLayoutSection in
+            let item = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(0.5),
+                    heightDimension: .fractionalHeight(1.0)
+                )
+            )
+            let fullItem = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalHeight(1.0)
+                )
+            )
+            let oneThirdItem = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(0.33),
+                    heightDimension: .fractionalHeight(1.0)
+                )
+            )
+            let verticalGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(0.5),
+                    heightDimension: .fractionalHeight(1.0)
+                ),
+                subitem: fullItem,
+                count: 2
+            )
+            let horizontalGroup = NSCollectionLayoutGroup.horizontal(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(160)
+                ),
+                subitems: [
+                    item,
+                    verticalGroup
+                ]
+            )
+            let threeItemGroup = NSCollectionLayoutGroup.horizontal(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(160)
+                ),
+                subitem: oneThirdItem,
+                count: 3
+            )
+            let finalGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(320)
+                ),
+                subitems: [
+                    horizontalGroup,
+                    threeItemGroup
+                ]
+            )
+            
+            return NSCollectionLayoutSection(group: finalGroup)
+        }
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        
+        return collectionView
+    }()
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Explore"
@@ -19,6 +87,14 @@ class ExploreViewController: UIViewController {
         searchViewController.searchBar.placeholder = "Search..."
         searchViewController.searchResultsUpdater = self
         navigationItem.searchController = searchViewController
+        view.addSubview(collectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
     }
 
 }
@@ -32,17 +108,34 @@ extension ExploreViewController: UISearchResultsUpdating {
             return
         }
         DatabaseManager.shared.searchUsers(with: query) {
-            results in
+            users in
             DispatchQueue.main.async {
-                resultsVC.update(with: results)
+                resultsVC.update(with: users)
             }
         }
     }
 }
 
+//MARK: - SearchResultsViewControllerDelegate
 extension ExploreViewController: SearchResultsViewControllerDelegate {
     func searchResultsViewController(_ vc: SearchResultsViewController, didSelectResultsWith user: User) {
         let vc = ProfileViewController(user: user)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
+            fatalError()
+        }
+        cell.configure(with: UIImage(named: "test"))
+        return cell
     }
 }
