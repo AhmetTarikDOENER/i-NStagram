@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */; };
+		455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */; };
+		455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */; };
+		455E621E2B8A5B490053332A /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621D2B8A5B490053332A /* NotificationsManager.swift */; };
 		457AF9982B83A7FC001D7954 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 457AF9972B83A7FC001D7954 /* GoogleService-Info.plist */; };
 		457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */; };
 		457AF99C2B83B5B2001D7954 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99B2B83B5B2001D7954 /* Extensions.swift */; };
@@ -60,6 +64,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		455E621D2B8A5B490053332A /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		457AF9972B83A7FC001D7954 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInHeaderView.swift; sourceTree = "<group>"; };
 		457AF99B2B83B5B2001D7954 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -125,6 +133,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		455E62162B8A59C10053332A /* NotificationCells */ = {
+			isa = PBXGroup;
+			children = (
+				455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */,
+				455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */,
+				455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */,
+			);
+			path = NotificationCells;
+			sourceTree = "<group>";
+		};
 		45BB0FD02B863BE300F485ED /* HomeCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +198,7 @@
 		45D5E6E02B81137D00DE4D84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				455E62162B8A59C10053332A /* NotificationCells */,
 				45BB0FD02B863BE300F485ED /* HomeCells */,
 				457AF9992B83B4FB001D7954 /* SignInHeaderView.swift */,
 				457AF99D2B83BAC5001D7954 /* iNSTextField.swift */,
@@ -222,6 +241,7 @@
 				45D5E7092B81167200DE4D84 /* StorageManager.swift */,
 				45D5E70B2B81168800DE4D84 /* AnalyticsManager.swift */,
 				45D5E70D2B81169100DE4D84 /* HapticsManager.swift */,
+				455E621D2B8A5B490053332A /* NotificationsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -352,8 +372,11 @@
 				45BB0FD82B863CBD00F485ED /* PostLikesCollectionViewCell.swift in Sources */,
 				45D5E6EF2B81158D00DE4D84 /* TabBarViewController.swift in Sources */,
 				45D5E7042B81163A00DE4D84 /* Notification.swift in Sources */,
+				455E621E2B8A5B490053332A /* NotificationsManager.swift in Sources */,
 				45D5E70A2B81167200DE4D84 /* StorageManager.swift in Sources */,
 				45D5E6F82B8115D700DE4D84 /* ListViewController.swift in Sources */,
+				455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */,
+				455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */,
 				45BB0FD42B863C6500F485ED /* PostCollectionViewCell.swift in Sources */,
 				45D5E6FA2B8115E300DE4D84 /* PostViewController.swift in Sources */,
 				45D5E6E72B81154000DE4D84 /* ExploreViewController.swift in Sources */,
@@ -376,6 +399,7 @@
 				45D5E7022B81162D00DE4D84 /* Relationship.swift in Sources */,
 				45D5E7002B81162300DE4D84 /* Post.swift in Sources */,
 				45BB0FDE2B868FED00F485ED /* PostEditViewController.swift in Sources */,
+				455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */,
 				45F87DFC2B8548570092EC18 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				45D5E7062B81165500DE4D84 /* AuthManager.swift in Sources */,
 				45D5E6F22B8115A900DE4D84 /* SignInViewController.swift in Sources */,
