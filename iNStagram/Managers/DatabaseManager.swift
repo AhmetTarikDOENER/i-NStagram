@@ -116,4 +116,33 @@ final class DatabaseManager {
             }
         }
     }
+    
+    public func getNotifications(completion: @escaping ([IGNotification]) -> Void) {
+        guard let username = UserDefaults.standard.string(forKey: "username") else { 
+            completion([])
+            return
+        }
+        let reference = database.collection("users").document(username).collection("notifications")
+        reference.getDocuments {
+            snapshot, error in
+            guard let notifications = snapshot?.documents.compactMap({
+                IGNotification(with: $0.data())
+            }), error == nil else {
+                completion([])
+                return
+            }
+            completion(notifications)
+        }
+    }
+    
+    public func insertNotification(
+        identifier: String,
+        data: [String: Any],
+        for username: String
+    ) {
+        let reference = database.collection("users")
+            .document(username)
+            .collection("notifications").document(identifier)
+        reference.setData(data)
+    }
 }

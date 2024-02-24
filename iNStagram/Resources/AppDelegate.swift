@@ -19,7 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = HomeViewController()
         window.makeKeyAndVisible()
         self.window = window
-        
+        // Add dummy notify for current user
+        let id = NotificationsManager.newIdentifier()
+        let model = IGNotification(
+            identifier: id,
+            notificationType: 1,
+            profilePictureURL: "https://picsum.photos/200/300?random=14",
+            username: "elonmusk",
+            dateString: String.date(from: Date()) ?? "Now",
+            isFollowing: nil,
+            postID: "123",
+            postURL: "https://picsum.photos/200/300?random=8"
+        )
+        NotificationsManager.shared.create(notification: model, for: "ahmettarik")
         return true
     }
 }

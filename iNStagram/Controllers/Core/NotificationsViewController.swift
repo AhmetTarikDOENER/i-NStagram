@@ -53,11 +53,64 @@ class NotificationsViewController: UIViewController {
     
     private func fetchNotifications() {
         NotificationsManager.shared.getNotifications {
-            notification in
-            
+            [weak self] models in
+            DispatchQueue.main.async {
+                self?.models = models
+                self?.createViewModels()
+            }
         }
-        noActivityLabel.isHidden = true
-        mockData()
+    }
+    
+    private func createViewModels() {
+        models.forEach {
+            model in
+            guard let type = NotificationsManager.IGType(rawValue: model.notificationType) else { return }
+            let username = model.username
+            guard let profilePictureURL = URL(string: model.profilePictureURL) else { return }
+            switch type {
+            case .like:
+                guard let postURL = URL(string: model.postURL ?? "") else { return }
+                viewModels.append(
+                    .like(
+                        viewModel: .init(
+                            username: username,
+                            profilePictureURL: profilePictureURL,
+                            postURL: postURL
+                        )
+                    )
+                )
+            case .comment:
+                guard let postURL = URL(string: model.postURL ?? "") else { return }
+                viewModels.append(
+                    .comment(
+                        viewModel: .init(
+                            username: username,
+                            profilePictureURL: profilePictureURL,
+                            postURL: postURL
+                        )
+                    )
+                )
+            case .follow:
+                guard let isFollowing = model.isFollowing else { return }
+                viewModels.append(
+                    .follow(
+                        viewModel: .init(
+                            username: username,
+                            profilePictureURL: profilePictureURL,
+                            isCurrentUserFollowing: isFollowing
+                        )
+                    )
+                )
+            }
+        }
+        if viewModels.isEmpty {
+            noActivityLabel.isHidden = false
+            tableView.isHidden = true
+        } else {
+            noActivityLabel.isHidden = true
+            tableView.isHidden = false
+            tableView.reloadData()
+        }
     }
     
     private func mockData() {
