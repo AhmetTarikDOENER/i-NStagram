@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol CommentNotificationTableViewCellDelegate: AnyObject {
+    func commentNotificationTableViewCell(_ cell: CommentNotificationTableViewCell, didTapCommentWith viewModel: CommentNotificationCellViewModel)
+}
+
 class CommentNotificationTableViewCell: UITableViewCell {
 
     static let identifier = "CommentNotificationTableViewCell"
+    
+    weak var delegate: CommentNotificationTableViewCellDelegate?
+    
+    private var viewModel: CommentNotificationCellViewModel?
 
     private let profilePictureImageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,6 +49,10 @@ class CommentNotificationTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         clipsToBounds = true
         contentView.addSubviews(profilePictureImageView, label, postImageView)
+        postImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapComment))
+        postImageView.addGestureRecognizer(tap)
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -86,8 +98,14 @@ class CommentNotificationTableViewCell: UITableViewCell {
     }
     
     func configure(with viewModel: CommentNotificationCellViewModel) {
+        self.viewModel = viewModel
         profilePictureImageView.sd_setImage(with: viewModel.profilePictureURL)
         postImageView.sd_setImage(with: viewModel.postURL)
         label.text = "\(viewModel.username) commented on your post."
+    }
+    
+    @objc private func didTapComment() {
+        guard let vm = viewModel else { return }
+        delegate?.commentNotificationTableViewCell(self, didTapCommentWith: vm)
     }
 }

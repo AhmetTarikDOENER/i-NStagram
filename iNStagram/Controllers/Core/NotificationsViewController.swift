@@ -10,6 +10,7 @@ import UIKit
 class NotificationsViewController: UIViewController {
     
     private var viewModels: [NotificationCellType] = []
+    private var models: [IGNotification] = []
 
     private let noActivityLabel: UILabel = {
         let label = UILabel()
@@ -88,6 +89,13 @@ class NotificationsViewController: UIViewController {
         ]
         tableView.reloadData()
     }
+    
+    private func openPost(with index: Int, username: String) {
+        guard index < models.count else { return }
+        let model = models[index]
+        let username = username
+        guard let postID = model.postID else { return }
+    }
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -104,23 +112,98 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
                 return UITableViewCell()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         case .like(let viewModel):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: LikeNotificationTableViewCell.identifier, for: indexPath) as? LikeNotificationTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         case .comment(let viewModel):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentNotificationTableViewCell.identifier, for: indexPath) as? CommentNotificationTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: viewModel)
+            cell.delegate = self
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         65
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cellType = viewModels[indexPath.row]
+        let username: String
+        switch cellType {
+        case .follow(let viewModel):
+            username = viewModel.username
+        case .like(let viewModel):
+            username = viewModel.username
+        case .comment(let viewModel):
+            username = viewModel.username
+        }
+        #warning("Update func to use username -below for email-")
+        
+        DatabaseManager.shared.findUser(with: username) {
+            [weak self] user in
+            guard let user else { return }
+            DispatchQueue.main.async {
+                let vc = ProfileViewController(user: user)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
+extension NotificationsViewController: FollowNotificationTableViewCellDelegate {
+    func followNotificationTableViewCell(
+        _ cell: FollowNotificationTableViewCell,
+        didTapButton newState: Bool,
+        viewModel: FollowNotificationCellViewModel
+    ) {
+        let username = viewModel.username
+//        DatabaseManager.shared.updateRleaitonship(state: isFollowing ? .follow : .unfollow, for: username) {
+//            success in
+//
+//        }
+    }
+}
+
+extension NotificationsViewController: LikeNotificationTableViewCellDelegate {
+    func likeNotificationTableViewCell(
+        _ cell: LikeNotificationTableViewCell,
+        didTapPostWith viewModel: LikeNotificationCellViewModel
+    ) {
+        guard let index = viewModels.firstIndex(where: {
+            switch $0 {
+            case .follow, .comment:
+                return false
+            case .like(let current):
+                return current == viewModel
+            }
+        }) else { return }
+        openPost(with: index, username: viewModel.username)
+    }
+}
+
+extension NotificationsViewController: CommentNotificationTableViewCellDelegate {
+    func commentNotificationTableViewCell(
+        _ cell: CommentNotificationTableViewCell,
+        didTapCommentWith viewModel: CommentNotificationCellViewModel
+    ) {
+        guard let index = viewModels.firstIndex(where: {
+            switch $0 {
+            case .follow, .like:
+                return false
+            case .comment(let current):
+                return current == viewModel
+            }
+        }) else { return }
+        openPost(with: index, username: viewModel.username)
     }
 }

@@ -13,7 +13,7 @@ final class DatabaseManager {
     static let shared = DatabaseManager()
     private init() {}
     
-    let database = Firestore.firestore()
+    private let database = Firestore.firestore()
     
     public func searchUsers(
         with usernamePrefix: String,

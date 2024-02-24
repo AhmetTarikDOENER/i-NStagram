@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct IGNotification: Codable {
+    let notificationType: Int
+    let profilePictureURL: String
+    let username: String
+    let isFollowing: Bool?
+    let postID: String?
+    let postURL: String?
+}
