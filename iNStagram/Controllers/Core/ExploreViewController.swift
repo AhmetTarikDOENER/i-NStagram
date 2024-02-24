@@ -90,11 +90,19 @@ class ExploreViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
+        fetchData()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    
+    private func fetchData() {
+        DatabaseManager.shared.explorePosts {
+            posts in
+            print(posts.count)
+        }
     }
 
 }

@@ -57,7 +57,7 @@ final class DatabaseManager {
     }
     
     public func createPost(newPost: Post, completion: @escaping (Bool) -> Void) {
-        guard let username = UserDefaults.standard.string(forKey: "username") else { 
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion(false)
             return
         }
@@ -76,12 +76,44 @@ final class DatabaseManager {
         let reference = database.collection("users")
         reference.getDocuments {
             snapshot, error in
-            guard let users = snapshot?.documents.compactMap { User(with: $0.data()) }, error == nil else {
+            guard let users = snapshot?.documents.compactMap ({ User(with: $0.data()) }), error == nil else {
                 completion(nil)
                 return
             }
             let user = users.first(where: { $0.email == email })
             completion(user)
+        }
+    }
+    
+    public func explorePosts(completion: @escaping ([Post]) -> Void) {
+        let reference = database.collection("users")
+        reference.getDocuments {
+            snapshot, error in
+            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }), error == nil else {
+                completion([])
+                return
+            }
+            let group = DispatchGroup()
+            var aggregatePosts = [Post]()
+            users.forEach {
+                user in
+                group.enter()
+                let username = user.username
+                let postsReference = self.database.collection("users/\(username)/posts")
+                postsReference.getDocuments {
+                    snapshot, error in
+                    defer {
+                        group.leave()
+                    }
+                    guard let posts = snapshot?.documents.compactMap({ Post(with: $0.data()) }), error == nil else {
+                        return
+                    }
+                    aggregatePosts.append(contentsOf: posts)
+                }
+            }
+            group.notify(queue: .main) {
+                completion(aggregatePosts)
+            }
         }
     }
 }
