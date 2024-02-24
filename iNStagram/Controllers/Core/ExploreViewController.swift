@@ -10,6 +10,7 @@ import UIKit
 class ExploreViewController: UIViewController {
 
     private let searchViewController = UISearchController(searchResultsController: SearchResultsViewController())
+    private var posts = [Post]()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout {
@@ -100,8 +101,11 @@ class ExploreViewController: UIViewController {
     
     private func fetchData() {
         DatabaseManager.shared.explorePosts {
-            posts in
-            print(posts.count)
+            [weak self] posts in
+            DispatchQueue.main.async {
+                self?.posts = posts
+                self?.collectionView.reloadData()
+            }
         }
     }
 
@@ -136,14 +140,22 @@ extension ExploreViewController: SearchResultsViewControllerDelegate {
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
             fatalError()
         }
-        cell.configure(with: UIImage(named: "test"))
+        let model = posts[indexPath.row]
+        cell.configure(with: URL(string: model.postURLString))
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let post = posts[indexPath.row]
+        let vc = PostViewController(post: post)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

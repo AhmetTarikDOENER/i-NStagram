@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
@@ -42,4 +43,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     func configure(with image: UIImage?) {
         imageView.image = image
     }
+    
+    func configure(with url: URL?) {
+        imageView.sd_setImage(with: url)
+    }
+
 }
