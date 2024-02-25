@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FollowNotificationTableViewCellDelegate: AnyObject {
-    func followNotificationTableViewCell(_ cell: FollowNotificationTableViewCell, didTapButton newState: Bool, viewModel: FollowNotificationCellViewModel)
+    func followNotificationTableViewCell(_ cell: FollowNotificationTableViewCell, didTapButton isFollowing: Bool, viewModel: FollowNotificationCellViewModel)
 }
 
 class FollowNotificationTableViewCell: UITableViewCell {

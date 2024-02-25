@@ -85,6 +85,19 @@ final class DatabaseManager {
         }
     }
     
+    public func findUser(username: String, completion: @escaping (User?) -> Void) {
+        let reference = database.collection("users")
+        reference.getDocuments {
+            snapshot, error in
+            guard let users = snapshot?.documents.compactMap ({ User(with: $0.data()) }), error == nil else {
+                completion(nil)
+                return
+            }
+            let user = users.first(where: { $0.username == username })
+            completion(user)
+        }
+    }
+    
     public func explorePosts(completion: @escaping ([Post]) -> Void) {
         let reference = database.collection("users")
         reference.getDocuments {
@@ -144,5 +157,63 @@ final class DatabaseManager {
             .document(username)
             .collection("notifications").document(identifier)
         reference.setData(data)
+    }
+    
+    public func getPost(
+        with identifier: String,
+        from username: String,
+        completion: @escaping (Post?) -> Void
+    ) {
+        let reference = database.collection("users")
+            .document(username)
+            .collection("posts").document(identifier)
+        reference.getDocument {
+            snapshot, error in
+            guard let data = snapshot?.data(),
+                  error == nil else { 
+                completion(nil)
+                return
+            }
+            completion(Post(with: data))
+        }
+    }
+    
+    enum RelationshipState {
+        case follow
+        case unfollow
+    }
+    
+    public func updateRelationship(
+        state: RelationshipState,
+        for targetUsername: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return
+        }
+
+        let currentFollowing = database.collection("users")
+            .document(currentUsername)
+            .collection("followings")
+        
+        let targetUserFollowers = database.collection("users")
+            .document(targetUsername)
+            .collection("followers")
+        
+        switch state {
+        case .unfollow:
+            // Remove follower from the currentUser following list
+            currentFollowing.document(targetUsername).delete()
+            // Remove currentUser from targetUser followers list
+            targetUserFollowers.document(currentUsername).delete()
+            completion(true)
+        case .follow:
+            // Add follower for requester following list
+            currentFollowing.document(targetUsername).setData(["valid" : "1"])
+            // Add currentUser to targetUser followers list
+            targetUserFollowers.document(currentUsername).setData(["valid" : "1"])
+            completion(true)
+        }
     }
 }

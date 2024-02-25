@@ -154,6 +154,27 @@ class NotificationsViewController: UIViewController {
         let model = models[index]
         let username = username
         guard let postID = model.postID else { return }
+        // Find post by id from target user
+        DatabaseManager.shared.getPost(
+            with: postID,
+            from: username
+        ) {
+            [weak self] post in
+            DispatchQueue.main.async {
+                guard let post else { 
+                    let alert = UIAlertController(
+                        title: "Ooops",
+                        message: "We are unable to open this post.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(alert, animated: true)
+                    return
+                }
+                let vc = PostViewController(post: post)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
@@ -206,11 +227,19 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
         case .comment(let viewModel):
             username = viewModel.username
         }
-        #warning("Update func to use username -below for email-")
         
-        DatabaseManager.shared.findUser(with: username) {
+        DatabaseManager.shared.findUser(username: username) {
             [weak self] user in
-            guard let user else { return }
+            guard let user else { 
+                let alert = UIAlertController(
+                    title: "Woops",
+                    message: "Unable to perform action.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                self?.present(alert, animated: true)
+                return
+            }
             DispatchQueue.main.async {
                 let vc = ProfileViewController(user: user)
                 self?.navigationController?.pushViewController(vc, animated: true)
@@ -222,14 +251,27 @@ extension NotificationsViewController: UITableViewDelegate, UITableViewDataSourc
 extension NotificationsViewController: FollowNotificationTableViewCellDelegate {
     func followNotificationTableViewCell(
         _ cell: FollowNotificationTableViewCell,
-        didTapButton newState: Bool,
+        didTapButton isFollowing: Bool,
         viewModel: FollowNotificationCellViewModel
     ) {
         let username = viewModel.username
-//        DatabaseManager.shared.updateRleaitonship(state: isFollowing ? .follow : .unfollow, for: username) {
-//            success in
-//
-//        }
+        DatabaseManager.shared.updateRelationship(
+            state: isFollowing ? .follow : .unfollow,
+            for: username
+        ) {
+            [weak self] success in
+            if !success {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(
+                        title: "Woops",
+                        message: "Unable to perform action.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(alert, animated: true)
+                }
+            }
+        }
     }
 }
 
