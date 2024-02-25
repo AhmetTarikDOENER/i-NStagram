@@ -75,7 +75,8 @@ class NotificationsViewController: UIViewController {
                         viewModel: .init(
                             username: username,
                             profilePictureURL: profilePictureURL,
-                            postURL: postURL
+                            postURL: postURL,
+                            dateString: model.dateString
                         )
                     )
                 )
@@ -86,7 +87,8 @@ class NotificationsViewController: UIViewController {
                         viewModel: .init(
                             username: username,
                             profilePictureURL: profilePictureURL,
-                            postURL: postURL
+                            postURL: postURL,
+                            dateString: model.dateString
                         )
                     )
                 )
@@ -97,7 +99,8 @@ class NotificationsViewController: UIViewController {
                         viewModel: .init(
                             username: username,
                             profilePictureURL: profilePictureURL,
-                            isCurrentUserFollowing: isFollowing
+                            isCurrentUserFollowing: isFollowing,
+                            dateString: model.dateString
                         )
                     )
                 )
@@ -122,21 +125,24 @@ class NotificationsViewController: UIViewController {
                 viewModel: .init(
                     username: "kanyewest",
                     profilePictureURL: iconURL,
-                    postURL: postURL
+                    postURL: postURL,
+                    dateString: "February 25"
                 )
             ),
             .comment(
                 viewModel: .init(
                     username: "arianagrande",
                     profilePictureURL: iconURL,
-                    postURL: postURL
+                    postURL: postURL,
+                    dateString: "February 25"
                 )
             ),
             .follow(
                 viewModel: .init(
                     username: "willsmith",
                     profilePictureURL: iconURL,
-                    isCurrentUserFollowing: true
+                    isCurrentUserFollowing: true,
+                    dateString: "February 25"
                 )
             )
         ]

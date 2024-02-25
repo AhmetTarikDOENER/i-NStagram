@@ -35,6 +35,16 @@ class CommentNotificationTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 15, weight: .light)
+        label.textColor = .secondaryLabel
+        
+        return label
+    }()
+    
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -48,7 +58,7 @@ class CommentNotificationTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         clipsToBounds = true
-        contentView.addSubviews(profilePictureImageView, label, postImageView)
+        contentView.addSubviews(profilePictureImageView, label, postImageView, dateLabel)
         postImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapComment))
         postImageView.addGestureRecognizer(tap)
@@ -82,11 +92,18 @@ class CommentNotificationTableViewCell: UITableViewCell {
                 height: contentView.height
             )
         )
+        dateLabel.sizeToFit()
         label.frame = CGRect(
             x: profilePictureImageView.right + 10,
             y: 0,
             width: labelSize.width,
-            height: contentView.height
+            height: contentView.height - dateLabel.height - 10
+        )
+        dateLabel.frame = CGRect(
+            x: profilePictureImageView.right + 10,
+            y: contentView.height - dateLabel.height - 10,
+            width: dateLabel.width,
+            height: dateLabel.height
         )
     }
     
@@ -95,6 +112,7 @@ class CommentNotificationTableViewCell: UITableViewCell {
         label.text = nil
         profilePictureImageView.image = nil
         postImageView.image = nil
+        dateLabel.text = nil
     }
     
     func configure(with viewModel: CommentNotificationCellViewModel) {
@@ -102,6 +120,7 @@ class CommentNotificationTableViewCell: UITableViewCell {
         profilePictureImageView.sd_setImage(with: viewModel.profilePictureURL)
         postImageView.sd_setImage(with: viewModel.postURL)
         label.text = "\(viewModel.username) commented on your post."
+        dateLabel.text = viewModel.dateString
     }
     
     @objc private func didTapComment() {
