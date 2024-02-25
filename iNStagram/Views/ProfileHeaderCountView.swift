@@ -7,7 +7,20 @@
 
 import UIKit
 
+protocol ProfileHeaderCountViewDelegate: AnyObject {
+    func profileHeaderCollectionReusableViewDidTapFollowers(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCollectionReusableViewDidTapFollowing(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCollectionReusableViewDidTapPosts(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCollectionReusableViewDidTapEditProfile(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCollectionReusableViewDidTapFollow(_ containerView: ProfileHeaderCountView)
+    func profileHeaderCollectionReusableViewDidTapUnFollow(_ containerView: ProfileHeaderCountView)
+}
+
 class ProfileHeaderCountView: UIView {
+    
+    private var action = ProfileButtonType.edit
+    
+    weak var delegate: ProfileHeaderCountViewDelegate?
 
     private let followerCountButton: UIButton = {
         let button = UIButton()
@@ -97,7 +110,7 @@ class ProfileHeaderCountView: UIView {
         followerCountButton.setTitle("\(viewModel.followerCount)\nFollowers", for: .normal)
         followingCountButton.setTitle("\(viewModel.followingCount)\nFollowings", for: .normal)
         postCountButton.setTitle("\(viewModel.postsCount)\nPosts", for: .normal)
-        
+        self.action = viewModel.actionType
         switch viewModel.actionType {
         case .edit:
             actionButton.backgroundColor = .systemBackground
@@ -119,6 +132,35 @@ class ProfileHeaderCountView: UIView {
     }
     
     private func addActions() {
-        
+        followerCountButton.addTarget(self, action: #selector(didTapFollowers), for: .touchUpInside)
+        followingCountButton.addTarget(self, action: #selector(didTapFollowing), for: .touchUpInside)
+        postCountButton.addTarget(self, action: #selector(didTapPosts), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+    }
+    
+    @objc private func didTapFollowers() {
+        delegate?.profileHeaderCollectionReusableViewDidTapFollowers(self)
+    }
+    
+    @objc private func didTapFollowing() {
+        delegate?.profileHeaderCollectionReusableViewDidTapFollowing(self)
+    }
+    
+    @objc private func didTapPosts() {
+        delegate?.profileHeaderCollectionReusableViewDidTapPosts(self)
+    }
+    
+    @objc private func didTapActionButton() {
+        switch action {
+        case .edit:
+            delegate?.profileHeaderCollectionReusableViewDidTapEditProfile(self)
+        case .follow(let isFollowing):
+            if isFollowing {
+                // Unf
+                delegate?.profileHeaderCollectionReusableViewDidTapUnFollow(self)
+            } else {
+                delegate?.profileHeaderCollectionReusableViewDidTapFollow(self)
+            }
+        }
     }
 }

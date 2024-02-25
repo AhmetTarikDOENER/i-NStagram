@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureNavBar()
         configureCollectionView()
+        fetchProfileInfo()
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,6 +50,21 @@ class ProfileViewController: UIViewController {
                 target: self,
                 action: #selector(didTapSettings)
             )
+        }
+    }
+    
+    private func fetchProfileInfo() {
+        // Counts 3
+        
+        // Bio, name
+        // Profile Picture URL
+        StorageManager.shared.profilePictureURL(for: user.username) {
+            url in
+            
+        }
+        // if not current user get follow state
+        if !isCurrentUser {
+            // Get follow state
         }
     }
     
@@ -136,7 +152,17 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier,
                 for: indexPath
               ) as? ProfileHeaderCollectionReusableView else { fatalError() }
-//        headerView.configure(with: /*<#T##ProfileHeaderViewModel#>*/)
+        let viewModel = ProfileHeaderViewModel(
+            profilePictureURL: nil,
+            followerCount: 200,
+            followingCount: 120,
+            postCount: 45,
+            buttonType: self.isCurrentUser ? .edit : .follow(isFollowing: true),
+            bio: "This is the first test profile",
+            name: "AHmet Tarik DÖNER"
+        )
+        headerView.configure(with: viewModel)
+        headerView.countContainerView.delegate = self
         return headerView
     }
     
@@ -145,5 +171,32 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 //        let post = posts[indexPath.row]
 //        let vc = PostViewController(post: post)
 //        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: - ProfileHeaderCountViewDelegate
+extension ProfileViewController: ProfileHeaderCountViewDelegate {
+    func profileHeaderCollectionReusableViewDidTapFollowers(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCollectionReusableViewDidTapFollowing(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCollectionReusableViewDidTapPosts(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCollectionReusableViewDidTapEditProfile(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCollectionReusableViewDidTapFollow(_ containerView: ProfileHeaderCountView) {
+        
+    }
+    
+    func profileHeaderCollectionReusableViewDidTapUnFollow(_ containerView: ProfileHeaderCountView) {
+        
     }
 }

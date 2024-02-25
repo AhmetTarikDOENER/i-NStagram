@@ -11,7 +11,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         
     static let identifier = "ProfileHeaderCollectionReusableView"
     
-    private let countContainerView = ProfileHeaderCountView()
+    public let countContainerView = ProfileHeaderCountView()
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -70,9 +70,24 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
+        bioLabel.text = nil
     }
     
     func configure(with viewModel: ProfileHeaderViewModel) {
-        
+        imageView.sd_setImage(with: viewModel.profilePictureURL)
+        var text = ""
+        if let name = viewModel.name {
+            text = name + "\n"
+        }
+        text += viewModel.bio ?? ""
+        bioLabel.text = text
+        // Container
+        let containerViewModel = ProfileHeaderCountViewViewModel(
+            followerCount: viewModel.followerCount,
+            followingCount: viewModel.followingCount,
+            postsCount: viewModel.postCount,
+            actionType: viewModel.buttonType
+        )
+        countContainerView.configure(with: containerViewModel)
     }
 }
