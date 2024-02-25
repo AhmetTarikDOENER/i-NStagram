@@ -31,9 +31,17 @@ class TabBarViewController: UITabBarController {
         let navVC5 = UINavigationController(rootViewController: profile)
         
         if #available(iOS 14.0, *) {
-            navVC3.navigationItem.backButtonDisplayMode = .minimal
+            home.navigationItem.backButtonDisplayMode = .minimal
+            explore.navigationItem.backButtonDisplayMode = .minimal
+            camera.navigationItem.backButtonDisplayMode = .minimal
+            notifications.navigationItem.backButtonDisplayMode = .minimal
+            profile.navigationItem.backButtonDisplayMode = .minimal
         } else {
+            navVC1.navigationItem.backButtonTitle = ""
+            navVC2.navigationItem.backButtonTitle = ""
             navVC3.navigationItem.backButtonTitle = ""
+            navVC4.navigationItem.backButtonTitle = ""
+            navVC5.navigationItem.backButtonTitle = ""
         }
         
         for navControllers in [navVC1, navVC2, navVC3, navVC3, navVC4, navVC5] {

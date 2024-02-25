@@ -19,6 +19,7 @@ protocol ProfileHeaderCountViewDelegate: AnyObject {
 class ProfileHeaderCountView: UIView {
     
     private var action = ProfileButtonType.edit
+    private var isFollowing = false
     
     weak var delegate: ProfileHeaderCountViewDelegate?
 
@@ -119,15 +120,20 @@ class ProfileHeaderCountView: UIView {
             actionButton.layer.borderWidth = 0.5
             actionButton.layer.borderColor = UIColor.tertiaryLabel.cgColor
         case .follow(let isFollowing):
-            actionButton.backgroundColor = isFollowing ? .systemBackground : .systemBlue
-            actionButton.setTitle(isFollowing ? "Unfollow" : "Follow", for: .normal)
-            actionButton.setTitleColor(isFollowing ? .label : .white, for: .normal)
-            if isFollowing {
-                actionButton.layer.borderWidth = 0.5
-                actionButton.layer.borderColor = UIColor.tertiaryLabel.cgColor
-            } else {
-                actionButton.layer.borderWidth = 0
-            }
+            self.isFollowing = isFollowing
+            updateFollowButton()
+        }
+    }
+    
+    private func updateFollowButton() {
+        actionButton.backgroundColor = isFollowing ? .systemBackground : .systemBlue
+        actionButton.setTitle(isFollowing ? "Unfollow" : "Follow", for: .normal)
+        actionButton.setTitleColor(isFollowing ? .label : .white, for: .normal)
+        if isFollowing {
+            actionButton.layer.borderWidth = 0.5
+            actionButton.layer.borderColor = UIColor.tertiaryLabel.cgColor
+        } else {
+            actionButton.layer.borderWidth = 0
         }
     }
     
@@ -154,13 +160,15 @@ class ProfileHeaderCountView: UIView {
         switch action {
         case .edit:
             delegate?.profileHeaderCollectionReusableViewDidTapEditProfile(self)
-        case .follow(let isFollowing):
-            if isFollowing {
+        case .follow:
+            if self.isFollowing {
                 // Unf
                 delegate?.profileHeaderCollectionReusableViewDidTapUnFollow(self)
             } else {
                 delegate?.profileHeaderCollectionReusableViewDidTapFollow(self)
             }
+            self.isFollowing = !isFollowing
+            updateFollowButton()
         }
     }
 }
