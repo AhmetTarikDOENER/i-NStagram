@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
     }
     
     private var collectionView: UICollectionView?
+    private var headerViewModel: ProfileHeaderViewModel?
     
     //MARK: - Init
     init(user: User) {
@@ -54,17 +55,52 @@ class ProfileViewController: UIViewController {
     }
     
     private func fetchProfileInfo() {
-        // Counts 3
+        var profilePictureURL: URL?
+        var buttonType: ProfileButtonType = .edit
+        var followers = 0
+        var followings = 0
+        var posts = 0
         
+        let group = DispatchGroup()
+        // Counts -> 3
+        group.enter()
+        DatabaseManager.shared.getUserCounts(username: user.username) {
+            result in
+            defer {
+                group.leave()
+            }
+            posts = result.posts
+            followers = result.followers
+            followings = result.following
+        }
+    
         // Bio, name
+        
         // Profile Picture URL
+        group.enter()
         StorageManager.shared.profilePictureURL(for: user.username) {
             url in
-            
+            defer {
+                group.leave()
+            }
+            profilePictureURL = url
         }
         // if not current user get follow state
         if !isCurrentUser {
             // Get follow state
+            buttonType = .follow(isFollowing: true)
+        }
+        group.notify(queue: .main) {
+            self.headerViewModel = ProfileHeaderViewModel(
+                profilePictureURL: profilePictureURL,
+                followerCount: followers,
+                followingCount: followings,
+                postCount: posts,
+                buttonType: buttonType,
+                bio: "This is the first test profile",
+                name: "AHmet Tarik DÖNER"
+            )
+            self.collectionView?.reloadData()
         }
     }
     
@@ -152,17 +188,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier,
                 for: indexPath
               ) as? ProfileHeaderCollectionReusableView else { fatalError() }
-        let viewModel = ProfileHeaderViewModel(
-            profilePictureURL: nil,
-            followerCount: 200,
-            followingCount: 120,
-            postCount: 45,
-            buttonType: self.isCurrentUser ? .edit : .follow(isFollowing: true),
-            bio: "This is the first test profile",
-            name: "AHmet Tarik DÖNER"
-        )
-        headerView.configure(with: viewModel)
-        headerView.countContainerView.delegate = self
+        if let viewModel = headerViewModel {
+            headerView.configure(with: viewModel)
+            headerView.countContainerView.delegate = self
+        }
         return headerView
     }
     
