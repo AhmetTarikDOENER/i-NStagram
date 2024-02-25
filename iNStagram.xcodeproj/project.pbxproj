@@ -19,6 +19,8 @@
 		457AF99E2B83BAC5001D7954 /* iNSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457AF99D2B83BAC5001D7954 /* iNSTextField.swift */; };
 		45B03D7F2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B03D7E2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift */; };
 		45B03D812B8B84D60052D0F5 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B03D802B8B84D60052D0F5 /* ProfileHeaderViewModel.swift */; };
+		45B03D832B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B03D822B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift */; };
+		45B03D852B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B03D842B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift */; };
 		45BB0FCF2B863A4400F485ED /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 45BB0FCE2B863A4400F485ED /* SDWebImage */; };
 		45BB0FD22B863BF600F485ED /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD12B863BF600F485ED /* PosterCollectionViewCell.swift */; };
 		45BB0FD42B863C6500F485ED /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB0FD32B863C6500F485ED /* PostCollectionViewCell.swift */; };
@@ -80,6 +82,8 @@
 		457AF99D2B83BAC5001D7954 /* iNSTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSTextField.swift; sourceTree = "<group>"; };
 		45B03D7E2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		45B03D802B8B84D60052D0F5 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		45B03D822B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCountView.swift; sourceTree = "<group>"; };
+		45B03D842B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCountViewViewModel.swift; sourceTree = "<group>"; };
 		45BB0FD12B863BF600F485ED /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FD32B863C6500F485ED /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		45BB0FD52B863C8700F485ED /* PostActionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 				45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */,
 				45BB0FDF2B8697C300F485ED /* PhotoCollectionViewCell.swift */,
 				45B03D7E2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift */,
+				45B03D822B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				45F87DFD2B85487F0092EC18 /* PostDateTimeCollectionViewCellViewModel.swift */,
 				455E62212B8A5CCD0053332A /* NotificationCellViewModels.swift */,
 				45B03D802B8B84D60052D0F5 /* ProfileHeaderViewModel.swift */,
+				45B03D842B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -383,6 +389,7 @@
 				45D5E6F62B8115C900DE4D84 /* CaptionViewController.swift in Sources */,
 				45BB0FD82B863CBD00F485ED /* PostLikesCollectionViewCell.swift in Sources */,
 				45D5E6EF2B81158D00DE4D84 /* TabBarViewController.swift in Sources */,
+				45B03D832B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift in Sources */,
 				45B03D7F2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				45D5E7042B81163A00DE4D84 /* Notification.swift in Sources */,
 				455E621E2B8A5B490053332A /* NotificationsManager.swift in Sources */,
@@ -405,6 +412,7 @@
 				45F87DFE2B85487F0092EC18 /* PostDateTimeCollectionViewCellViewModel.swift in Sources */,
 				45D5E6EB2B81155A00DE4D84 /* NotificationsViewController.swift in Sources */,
 				457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */,
+				45B03D852B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift in Sources */,
 				45D2CFF82B87D531009796A6 /* SearchResultsViewController.swift in Sources */,
 				45D5E6FC2B8115F000DE4D84 /* SettingsViewController.swift in Sources */,
 				45F87DF62B8547A40092EC18 /* PostCollectionViewCellViewModel.swift in Sources */,
