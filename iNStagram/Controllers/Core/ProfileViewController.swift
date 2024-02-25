@@ -60,6 +60,8 @@ class ProfileViewController: UIViewController {
         var followers = 0
         var followings = 0
         var posts = 0
+        var name: String?
+        var bio: String?
         
         let group = DispatchGroup()
         // Counts -> 3
@@ -73,8 +75,12 @@ class ProfileViewController: UIViewController {
             followers = result.followers
             followings = result.following
         }
-    
         // Bio, name
+        DatabaseManager.shared.getUserInfo(username: user.username) {
+            userInfo in
+            name = userInfo?.name ?? ""
+            bio = userInfo?.bio ?? ""
+        }
         
         // Profile Picture URL
         group.enter()
@@ -88,7 +94,11 @@ class ProfileViewController: UIViewController {
         // if not current user get follow state
         if !isCurrentUser {
             // Get follow state
-            buttonType = .follow(isFollowing: true)
+            group.enter()
+            DatabaseManager.shared.isFollowing(targetUsername: user.username) {
+                isFollowing in
+                buttonType = .follow(isFollowing: isFollowing)
+            }
         }
         group.notify(queue: .main) {
             self.headerViewModel = ProfileHeaderViewModel(
@@ -97,8 +107,8 @@ class ProfileViewController: UIViewController {
                 followingCount: followings,
                 postCount: posts,
                 buttonType: buttonType,
-                bio: "This is the first test profile",
-                name: "AHmet Tarik DÖNER"
+                bio: bio,
+                name: name
             )
             self.collectionView?.reloadData()
         }
@@ -218,7 +228,15 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
     }
     
     func profileHeaderCollectionReusableViewDidTapEditProfile(_ containerView: ProfileHeaderCountView) {
-        
+        let vc = EditProfileViewController()
+        vc.completion = {
+            [weak self] in
+            self?.headerViewModel = nil
+            self?.fetchProfileInfo()
+            // Refetch header info
+        }
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC, animated: true)
     }
     
     func profileHeaderCollectionReusableViewDidTapFollow(_ containerView: ProfileHeaderCountView) {

@@ -131,7 +131,7 @@ final class DatabaseManager {
     }
     
     public func getNotifications(completion: @escaping ([IGNotification]) -> Void) {
-        guard let username = UserDefaults.standard.string(forKey: "username") else { 
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
             completion([])
             return
         }
@@ -170,7 +170,7 @@ final class DatabaseManager {
         reference.getDocument {
             snapshot, error in
             guard let data = snapshot?.data(),
-                  error == nil else { 
+                  error == nil else {
                 completion(nil)
                 return
             }
@@ -192,7 +192,7 @@ final class DatabaseManager {
             completion(false)
             return
         }
-
+        
         let currentFollowing = database.collection("users")
             .document(currentUsername)
             .collection("followings")
@@ -263,6 +263,68 @@ final class DatabaseManager {
         group.notify(queue: .global()) {
             let results = (followers: followers, following: following, posts: posts)
             completion(results)
+        }
+    }
+    
+    public func isFollowing(
+        targetUsername: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return
+        }
+        let reference = database.collection("users")
+            .document(targetUsername)
+            .collection("followers")
+            .document(currentUsername)
+        reference.getDocument {
+            snapshot, error in
+            guard snapshot != nil, error == nil else {
+                // Not following
+                completion(false)
+                return
+            }
+            // Following
+            completion(true)
+        }
+    }
+    
+    public func getUserInfo(
+        username: String,
+        completion: @escaping (UserInfo?) -> Void
+    ) {
+        let reference = database.collection("users")
+            .document(username)
+            .collection("information")
+            .document("basics")
+        reference.getDocument {
+            snapshot, error in
+            guard let data = snapshot?.data(),
+                  let userInfo = UserInfo(with: data) else {
+                completion(nil)
+                return
+            }
+            completion(userInfo)
+        }
+    }
+    
+    public func setUserInfo(
+        userInfo: UserInfo,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let username = UserDefaults.standard.string(forKey: "username"),
+              let data = userInfo.asDictionary() else {
+            completion(false)
+            return
+        }
+        let reference = database.collection("users")
+            .document(username)
+            .collection("information")
+            .document("basics")
+        reference.setData(data) {
+            error in
+            completion(error == nil)
         }
     }
 }
