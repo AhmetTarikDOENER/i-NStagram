@@ -174,7 +174,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .post(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.identifier, for: indexPath) as? PostCollectionViewCell else {
@@ -188,7 +188,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .likeCount(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostLikesCollectionViewCell.identifier, for: indexPath) as? PostLikesCollectionViewCell else {
@@ -318,7 +318,7 @@ extension HomeViewController {
 
 //MARK: - PosterCollectionViewCellDelegate
 extension HomeViewController: PosterCollectionViewCellDelegate {
-    func posterCollectionViewCellDidTapMore(_ cell: PosterCollectionViewCell) {
+    func posterCollectionViewCellDidTapMore(_ cell: PosterCollectionViewCell, index: Int) {
         let actionSheet = UIAlertController(
             title: "Post Actions",
             message: nil,
@@ -326,8 +326,21 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
         )
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         actionSheet.addAction(UIAlertAction(title: "Share Post", style: .default, handler: {
-            _ in
-            
+            [weak self] _ in
+            let section = self?.viewModels[index] ?? []
+            section.forEach {
+                cellType in
+                switch cellType {
+                case .post(let viewModel):
+                    let vc = UIActivityViewController(
+                        activityItems: ["Check out this post.", viewModel.postURL],
+                        applicationActivities: []
+                    )
+                    self?.present(vc, animated: true)
+                default:
+                    break
+                }
+            }
         }))
         actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: {
             _ in
@@ -350,22 +363,31 @@ extension HomeViewController: PostCollectionViewCellDelegate {
 }
 
 extension HomeViewController: PostActionsCollectionViewCellDelegate {
-    func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool) {
+    func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool, index: Int) {
         // Call database to update state
     }
     
-    func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell) {
-//        let vc = PostViewController(post: <#T##Post#>)
-//        vc.title = "Post"
-//        navigationController?.pushViewController(vc, animated: true)
+    func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
+        //        let vc = PostViewController(post: <#T##Post#>)
+        //        vc.title = "Post"
+        //        navigationController?.pushViewController(vc, animated: true)
     }
     
-    func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell) {
-        let vc = UIActivityViewController(
-            activityItems: ["Sharing from Instagram"],
-            applicationActivities: []
-        )
-        present(vc, animated: true)
+    func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
+        let section = viewModels[index]
+        section.forEach {
+            cellType in
+            switch cellType {
+            case .post(let viewModel):
+                let vc = UIActivityViewController(
+                    activityItems: ["Check out this post.", viewModel.postURL],
+                    applicationActivities: []
+                )
+                present(vc, animated: true)
+            default:
+                break
+            }
+        }
     }
 }
 //MARK: - PostLikesCollectionViewCellDelegate
