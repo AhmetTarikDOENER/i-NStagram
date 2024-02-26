@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4501B9762B8CD7CF0084E385 /* iNSFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */; };
 		455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */; };
 		455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */; };
 		455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSFollowButton.swift; sourceTree = "<group>"; };
 		455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				45BB0FDF2B8697C300F485ED /* PhotoCollectionViewCell.swift */,
 				45B03D7E2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift */,
 				45B03D822B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift */,
+				4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				45B03D892B8BBA980052D0F5 /* EditProfileViewController.swift in Sources */,
 				45B03D852B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift in Sources */,
 				45D2CFF82B87D531009796A6 /* SearchResultsViewController.swift in Sources */,
+				4501B9762B8CD7CF0084E385 /* iNSFollowButton.swift in Sources */,
 				45D5E6FC2B8115F000DE4D84 /* SettingsViewController.swift in Sources */,
 				45F87DF62B8547A40092EC18 /* PostCollectionViewCellViewModel.swift in Sources */,
 				45F87E002B8549DB0092EC18 /* HomeFeedCellType.swift in Sources */,

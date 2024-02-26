@@ -47,13 +47,7 @@ class FollowNotificationTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let followButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 4
-        button.layer.masksToBounds = true
-        
-        return button
-    }()
+    private let followButton = iNSFollowButton()
     
     //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -118,27 +112,18 @@ class FollowNotificationTableViewCell: UITableViewCell {
     
     func configure(with viewModel: FollowNotificationCellViewModel) {
         self.viewModel = viewModel
+        print(viewModel)
         label.text = "\(viewModel.username) started following you."
         profilePictureImageView.sd_setImage(with: viewModel.profilePictureURL)
         isFollowing = viewModel.isCurrentUserFollowing
-        updateButton()
         dateLabel.text = viewModel.dateString
+        followButton.configure(for: isFollowing ? .unfollow : .follow)
     }
     
     @objc private func didTapFollow() {
         guard let vm = viewModel else { return }
         delegate?.followNotificationTableViewCell(self, didTapButton: !isFollowing, viewModel: vm)
         self.isFollowing = !isFollowing
-        updateButton()
-    }
-    
-    private func updateButton() {
-        followButton.setTitle(isFollowing ? "Unfollow" : "Follow", for: .normal)
-        followButton.backgroundColor = isFollowing ? .tertiarySystemBackground : .systemBlue
-        followButton.setTitleColor(isFollowing ? .label : .white, for: .normal)
-        if isFollowing {
-            followButton.layer.borderWidth = 0.5
-            followButton.layer.borderColor = UIColor.secondaryLabel.cgColor
-        }
+        followButton.configure(for: isFollowing ? .unfollow : .follow)
     }
 }

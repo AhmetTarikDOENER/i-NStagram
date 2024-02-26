@@ -308,7 +308,7 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
         collectionView?.setContentOffset(
             CGPoint(
                 x: 0,
-                y: view.width * 0.7
+                y: view.width * 0.45
             ),
             animated: true
         )
@@ -327,10 +327,26 @@ extension ProfileViewController: ProfileHeaderCountViewDelegate {
     }
     
     func profileHeaderCollectionReusableViewDidTapFollow(_ containerView: ProfileHeaderCountView) {
-        
+        DatabaseManager.shared.updateRelationship(state: .follow, for: user.username) {
+            [weak self] success in
+            if !success {
+                print("Failed to follow")
+                DispatchQueue.main.async {
+                    self?.collectionView?.reloadData()
+                }
+            }
+        }
     }
     
     func profileHeaderCollectionReusableViewDidTapUnFollow(_ containerView: ProfileHeaderCountView) {
-        
+        DatabaseManager.shared.updateRelationship(state: .unfollow, for: user.username) {
+            [weak self] success in
+            if !success {
+                print("Failed to follow")
+                DispatchQueue.main.async {
+                    self?.collectionView?.reloadData()
+                }
+            }
+        }
     }
 }
