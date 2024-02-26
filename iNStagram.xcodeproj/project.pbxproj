@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4501B9762B8CD7CF0084E385 /* iNSFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */; };
+		4501B9782B8CE4E30084E385 /* ListUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B9772B8CE4E30084E385 /* ListUserTableViewCell.swift */; };
+		4501B97A2B8CE6680084E385 /* ListUserTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B9792B8CE6680084E385 /* ListUserTableViewCellViewModel.swift */; };
 		455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */; };
 		455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */; };
 		455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */; };
@@ -74,6 +76,8 @@
 
 /* Begin PBXFileReference section */
 		4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSFollowButton.swift; sourceTree = "<group>"; };
+		4501B9772B8CE4E30084E385 /* ListUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCell.swift; sourceTree = "<group>"; };
+		4501B9792B8CE6680084E385 /* ListUserTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 				45B03D7E2B8B84690052D0F5 /* ProfileHeaderCollectionReusableView.swift */,
 				45B03D822B8B8B4D0052D0F5 /* ProfileHeaderCountView.swift */,
 				4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */,
+				4501B9772B8CE4E30084E385 /* ListUserTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				455E62212B8A5CCD0053332A /* NotificationCellViewModels.swift */,
 				45B03D802B8B84D60052D0F5 /* ProfileHeaderViewModel.swift */,
 				45B03D842B8B8FB20052D0F5 /* ProfileHeaderCountViewViewModel.swift */,
+				4501B9792B8CE6680084E385 /* ListUserTableViewCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				455E62222B8A5CCD0053332A /* NotificationCellViewModels.swift in Sources */,
 				45D5E6F42B8115B800DE4D84 /* SignUpViewController.swift in Sources */,
 				45D5E6FE2B81161A00DE4D84 /* User.swift in Sources */,
+				4501B97A2B8CE6680084E385 /* ListUserTableViewCellViewModel.swift in Sources */,
 				45F87DFE2B85487F0092EC18 /* PostDateTimeCollectionViewCellViewModel.swift in Sources */,
 				45D5E6EB2B81155A00DE4D84 /* NotificationsViewController.swift in Sources */,
 				457AF99A2B83B4FB001D7954 /* SignInHeaderView.swift in Sources */,
@@ -431,6 +438,7 @@
 				45F87DFA2B8548160092EC18 /* PostLikesCollectionViewCellViewModel.swift in Sources */,
 				45D5E7082B81166400DE4D84 /* DatabaseManager.swift in Sources */,
 				45D5E7022B81162D00DE4D84 /* Relationship.swift in Sources */,
+				4501B9782B8CE4E30084E385 /* ListUserTableViewCell.swift in Sources */,
 				45D5E7002B81162300DE4D84 /* Post.swift in Sources */,
 				45BB0FDE2B868FED00F485ED /* PostEditViewController.swift in Sources */,
 				455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */,

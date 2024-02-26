@@ -290,6 +290,44 @@ final class DatabaseManager {
         }
     }
     
+    public func getFollowers(
+        for username: String,
+        completion: @escaping ([String]) -> Void
+    ) {
+        let reference = database.collection("users")
+            .document(username)
+            .collection("followers")
+        reference.getDocuments {
+            snapshot, error in
+            guard let usernames = snapshot?.documents.compactMap({
+                $0.documentID
+            }), error == nil else {
+                completion([])
+                return
+            }
+            completion(usernames)
+        }
+    }
+    
+    public func getFollowings(
+        for username: String,
+        completion: @escaping ([String]) -> Void
+    ) {
+        let reference = database.collection("users")
+            .document(username)
+            .collection("followings")
+        reference.getDocuments {
+            snapshot, error in
+            guard let usernames = snapshot?.documents.compactMap({
+                $0.documentID
+            }), error == nil else {
+                completion([])
+                return
+            }
+            completion(usernames)
+        }
+    }
+    
     public func getUserInfo(
         username: String,
         completion: @escaping (UserInfo?) -> Void

@@ -296,11 +296,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 //MARK: - ProfileHeaderCountViewDelegate
 extension ProfileViewController: ProfileHeaderCountViewDelegate {
     func profileHeaderCollectionReusableViewDidTapFollowers(_ containerView: ProfileHeaderCountView) {
-        
+        let vc = ListViewController(type: .followers(user: user))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableViewDidTapFollowing(_ containerView: ProfileHeaderCountView) {
-        
+        let vc = ListViewController(type: .following(user: user))
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableViewDidTapPosts(_ containerView: ProfileHeaderCountView) {
