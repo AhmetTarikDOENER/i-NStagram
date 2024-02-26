@@ -30,34 +30,53 @@ class HomeViewController: UIViewController {
     //MARK: - Private
     private func fetchPosts() {
         guard let username = UserDefaults.standard.string(forKey: "username") else { return }
-        DatabaseManager.shared.getPosts(for: username) {
-            [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let posts):
-                    let group = DispatchGroup()
-                    posts.forEach {
-                        model in
-                        group.enter()
-                        self?.createViewModel(
-                            model: model,
-                            username: username,
-                            completion: {
-                            success in
-                            defer {
-                                group.leave()
-                            }
-                            if !success {
-                                
-                            }
-                        })
+        let userGroup = DispatchGroup()
+        userGroup.enter()
+        var allPosts: [(posts: Post, owner: String)] = []
+        DatabaseManager.shared.getFollowings(for: username) {
+            usernames in
+            defer {
+                userGroup.leave()
+            }
+            let users = usernames + [username]
+            for currentUsername in users {
+                userGroup.enter()
+                DatabaseManager.shared.getPosts(for: currentUsername) {
+                    result in
+                    DispatchQueue.main.async {
+                        defer {
+                            userGroup.leave()
+                        }
+                        switch result {
+                        case .success(let posts):
+                            allPosts.append(contentsOf: posts.compactMap({
+                                (posts: $0, owner: currentUsername)
+                            }))
+                        case .failure:
+                            break
+                        }
                     }
-                    group.notify(queue: .main) {
-                        self?.collectionView?.reloadData()
-                    }
-                case .failure(let error):
-                    print(error)
                 }
+            }
+        }
+        userGroup.notify(queue: .main) {
+            let sortedPosts = allPosts.sorted(by: { $0.posts.date > $1.posts.date })
+            let group = DispatchGroup()
+            sortedPosts.forEach {
+                model in
+                group.enter()
+                self.createViewModel(
+                    model: model.posts,
+                    username: model.owner) {
+                        success in
+                        defer {
+                            group.leave()
+                        }
+                        if !success { print("failed to create viewmodel") }
+                    }
+            }
+            group.notify(queue: .main) {
+                self.collectionView?.reloadData()
             }
         }
     }
