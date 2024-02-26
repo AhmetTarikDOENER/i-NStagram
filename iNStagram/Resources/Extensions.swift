@@ -86,3 +86,7 @@ extension String {
         return formattedString
     }
 }
+
+extension Notification.Name {
+    static let didPostNotification = Notification.Name("didPostNotification")
+}

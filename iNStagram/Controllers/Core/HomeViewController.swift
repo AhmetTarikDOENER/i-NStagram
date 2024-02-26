@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView?
+    private var observer: NSObjectProtocol?
     
     private var viewModels = [[HomeFeedCellType]]()
     
@@ -20,6 +21,16 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureCollectionView()
         fetchPosts()
+        observer = NotificationCenter.default.addObserver(
+            forName: .didPostNotification,
+            object: nil,
+            queue: .main,
+            using: {
+                [weak self] _ in
+                self?.viewModels.removeAll()
+                self?.fetchPosts()
+            }
+        )
     }
     
     override func viewDidLayoutSubviews() {
