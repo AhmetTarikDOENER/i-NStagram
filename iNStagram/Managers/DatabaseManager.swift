@@ -42,6 +42,8 @@ final class DatabaseManager {
             snapshot, error in
             guard let posts = snapshot?.documents.compactMap({
                 Post(with: $0.data())
+            }).sorted(by: {
+                $0.date > $1.date
             }), error == nil else { return }
             completion(.success(posts))
         }

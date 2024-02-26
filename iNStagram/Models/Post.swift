@@ -14,6 +14,10 @@ struct Post: Codable {
     let postURLString: String
     var likers: [String]
     
+    var date: Date {
+        DateFormatter.formatter.date(from: postedDate) ?? Date()
+    }
+    
     var storageReference: String? {
         guard let username = UserDefaults.standard.string(forKey: "username") else { return nil }
         return "\(username)/posts/\(id).png"

@@ -25,16 +25,25 @@ class CameraViewController: UIViewController {
         return button
     }()
     
+    private let photoPickerButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .label
+        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)), for: .normal)
+        
+        return button
+    }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
         title = "Take Photo"
-        view.addSubviews(cameraView, cameraButton)
+        view.addSubviews(cameraView, cameraButton, photoPickerButton)
         setupNavigationBar()
         checkCameraPermission()
         setupCamera()
         cameraButton.addTarget(self, action: #selector(didTapTakePhoto), for: .touchUpInside)
+        photoPickerButton.addTarget(self, action: #selector(didTapPickPhoto), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,9 +76,23 @@ class CameraViewController: UIViewController {
             height: buttonSize
         )
         cameraButton.layer.cornerRadius = buttonSize / 2
+        photoPickerButton.frame = CGRect(
+            x: (cameraButton.left - (buttonSize / 1.5)) / 2,
+            y: (cameraButton.top + (buttonSize / 1.5) / 2),
+            width: buttonSize / 1.5,
+            height: buttonSize / 1.5
+        )
     }
     
     //MARK: - Private
+    @objc private func didTapPickPhoto() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
     private func checkCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
         case .notDetermined:
@@ -128,14 +151,8 @@ class CameraViewController: UIViewController {
         tabBarController?.selectedIndex = 0
         tabBarController?.tabBar.isHidden = false
     }
-}
-
-//MARK: - AVCapturePhotoCaptureDelegate
-extension CameraViewController: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let data = photo.fileDataRepresentation(),
-        let image = UIImage(data: data) else { return }
-        captureSession?.stopRunning()
+    
+    private func showEditedPhoto(image: UIImage) {
         guard let resizedImage = image.sd_resizedImage(
             with: CGSize(
                 width: 640,
@@ -145,5 +162,27 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         ) else { return }
         let vc = PostEditViewController(image: resizedImage)
         navigationController?.pushViewController(vc, animated: false)
+    }
+}
+
+//MARK: - AVCapturePhotoCaptureDelegate
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        guard let data = photo.fileDataRepresentation(),
+        let image = UIImage(data: data) else { return }
+        captureSession?.stopRunning()
+        showEditedPhoto(image: image)
+    }
+}
+
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        showEditedPhoto(image: image)
     }
 }
