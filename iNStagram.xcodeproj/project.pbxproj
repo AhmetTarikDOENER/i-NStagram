@@ -12,6 +12,7 @@
 		4501B97A2B8CE6680084E385 /* ListUserTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B9792B8CE6680084E385 /* ListUserTableViewCellViewModel.swift */; };
 		4501B97C2B8D2D460084E385 /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501B97B2B8D2D460084E385 /* SettingsModels.swift */; };
 		452085282B8E247A00920AD5 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452085272B8E247A00920AD5 /* CommentCollectionViewCell.swift */; };
+		4520852A2B8E2A9C00920AD5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452085292B8E2A9C00920AD5 /* Comment.swift */; };
 		455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */; };
 		455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */; };
 		455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		4501B9792B8CE6680084E385 /* ListUserTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		4501B97B2B8D2D460084E385 /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		452085272B8E247A00920AD5 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		452085292B8E2A9C00920AD5 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				455E621F2B8A5C7B0053332A /* NotificationCellType.swift */,
 				45B03D862B8BB6A10052D0F5 /* UserInfo.swift */,
 				4501B97B2B8D2D460084E385 /* SettingsModels.swift */,
+				452085292B8E2A9C00920AD5 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				45D5E70E2B81169100DE4D84 /* HapticsManager.swift in Sources */,
 				45BB0FE02B8697C300F485ED /* PhotoCollectionViewCell.swift in Sources */,
 				45BB0FD22B863BF600F485ED /* PosterCollectionViewCell.swift in Sources */,
+				4520852A2B8E2A9C00920AD5 /* Comment.swift in Sources */,
 				45D5E6C32B81091100DE4D84 /* AppDelegate.swift in Sources */,
 				45BB0FD62B863C8700F485ED /* PostActionsCollectionViewCell.swift in Sources */,
 				45D5E6C52B81091100DE4D84 /* SceneDelegate.swift in Sources */,
