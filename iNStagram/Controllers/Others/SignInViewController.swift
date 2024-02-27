@@ -153,11 +153,12 @@ class SignInViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
+                    HapticsManager.shared.vibrate(for: .success)
                     let vc = TabBarViewController()
                     vc.modalPresentationStyle = .fullScreen
                     self?.present(vc, animated: true)
-                case .failure(let error):
-                    print(error)
+                case .failure:
+                    HapticsManager.shared.vibrate(for: .error)
                 }
             }
         }

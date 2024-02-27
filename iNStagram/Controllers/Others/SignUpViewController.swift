@@ -216,12 +216,13 @@ class SignUpViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let user):
+                    HapticsManager.shared.vibrate(for: .success)
                     UserDefaults.standard.setValue(user.email, forKey: "email")
                     UserDefaults.standard.setValue(user.username, forKey: "username")
                     self?.navigationController?.popToRootViewController(animated: true)
                     self?.completion?()
-                case .failure(let error):
-                    print("\n\nSign Up Error: \(error)")
+                case .failure:
+                    HapticsManager.shared.vibrate(for: .error)
                 }
             }
         }
