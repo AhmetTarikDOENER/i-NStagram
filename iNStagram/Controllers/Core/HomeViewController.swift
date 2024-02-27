@@ -221,6 +221,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: StoryHeaderCollectionReusableView.identifier,
+                for: indexPath
+              ) as? StoryHeaderCollectionReusableView else {
+            return UICollectionReusableView()
+        }
+        let viewModels = StoriesViewModel(stories: [
+            .init(username: "test", image: UIImage(named: "test")),
+            .init(username: "test", image: UIImage(named: "test")),
+            .init(username: "test", image: UIImage(named: "test")),
+            .init(username: "test", image: UIImage(named: "test")),
+            .init(username: "test", image: UIImage(named: "test")),
+        ])
+        headerView.configure(with: viewModels)
+        return headerView
+    }
 }
 
 extension HomeViewController {
@@ -278,8 +302,20 @@ extension HomeViewController {
                         posterItem, postItem, actionsItem, likeCountItem, captionItem, timestampsItem
                     ]
                 )
-                // Sections
                 let section = NSCollectionLayoutSection(group: group)
+                // Sections
+                if index == 0 {
+                    section.boundarySupplementaryItems = [
+                        NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: NSCollectionLayoutSize(
+                                widthDimension: .fractionalWidth(1.0),
+                                heightDimension: .fractionalHeight(0.12)
+                            ),
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                    ]
+                }
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 3,
                     leading: 0,
@@ -321,6 +357,7 @@ extension HomeViewController {
             PostDateTimeCollectionViewCell.self,
             forCellWithReuseIdentifier: PostDateTimeCollectionViewCell.identifier
         )
+        collectionView.register(StoryHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StoryHeaderCollectionReusableView.identifier)
         self.collectionView = collectionView
     }
 }
