@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     private var observer: NSObjectProtocol?
-    
+    private var allPosts: [(posts: Post, owner: String)] = []
     private var viewModels = [[HomeFeedCellType]]()
     
     //MARK: - Lifecycle
@@ -72,6 +72,7 @@ class HomeViewController: UIViewController {
         }
         userGroup.notify(queue: .main) {
             let group = DispatchGroup()
+            self.allPosts = allPosts
             allPosts.forEach {
                 model in
                 group.enter()
@@ -86,14 +87,20 @@ class HomeViewController: UIViewController {
                     }
             }
             group.notify(queue: .main) {
-                self.sortViewModels()
+                self.sortData()
                 self.collectionView?.reloadData()
             }
         }
     }
     
-    private func sortViewModels() {
-        self.viewModels = self.viewModels.sorted(by: {
+    private func sortData() {
+        allPosts = allPosts.sorted(by: {
+            first, second in
+            let date1 = first.posts.date
+            let date2 = second.posts.date
+            return date1 > date2
+        })
+        viewModels = viewModels.sorted(by: {
             first, second in
             var date1: Date?
             var date2: Date?
@@ -368,9 +375,10 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
-        //        let vc = PostViewController(post: <#T##Post#>)
-        //        vc.title = "Post"
-        //        navigationController?.pushViewController(vc, animated: true)
+        let tuple = allPosts[index]
+        let vc = PostViewController(post: tuple.posts, owner: tuple.owner)
+        vc.title = "Post"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {

@@ -245,6 +245,8 @@ extension PostViewController {
             PostDateTimeCollectionViewCell.self,
             forCellWithReuseIdentifier: PostDateTimeCollectionViewCell.identifier
         )
+        collectionView.register(CommentCollectionViewCell.self, forCellWithReuseIdentifier: CommentCollectionViewCell.identifier)
+        
         self.collectionView = collectionView
     }
 }
