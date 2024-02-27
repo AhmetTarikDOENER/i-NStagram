@@ -390,7 +390,7 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
         }))
         actionSheet.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: {
             _ in
-            
+            AnalyticsManager.shared.logFeedInteraction(.reported)
         }))
         present(actionSheet, animated: true)
     }
@@ -404,6 +404,7 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
 //MARK: - PostCollectionViewCellDelegate
 extension HomeViewController: PostCollectionViewCellDelegate {
     func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.doubleTapToLike)
         let tuple = allPosts[index]
         DatabaseManager.shared.updateLikeState(
             state: .like,
@@ -421,6 +422,7 @@ extension HomeViewController: PostCollectionViewCellDelegate {
 
 extension HomeViewController: PostActionsCollectionViewCellDelegate {
     func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.like)
         HapticsManager.shared.vibrateForSelection()
         let tuple = allPosts[index]
         DatabaseManager.shared.updateLikeState(
@@ -436,6 +438,7 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.comment)
         let tuple = allPosts[index]
         HapticsManager.shared.vibrateForSelection()
         let vc = PostViewController(post: tuple.posts, owner: tuple.owner)
@@ -444,6 +447,7 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
+        AnalyticsManager.shared.logFeedInteraction(.share)
         let section = viewModels[index]
         section.forEach {
             cellType in
