@@ -60,7 +60,7 @@ class CommentNotificationTableViewCell: UITableViewCell {
         clipsToBounds = true
         contentView.addSubviews(profilePictureImageView, label, postImageView, dateLabel)
         postImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapSend))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapComment))
         postImageView.addGestureRecognizer(tap)
         selectionStyle = .none
     }

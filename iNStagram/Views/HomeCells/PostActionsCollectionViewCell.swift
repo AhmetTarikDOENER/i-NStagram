@@ -71,7 +71,7 @@ class PostActionsCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .systemBackground
         contentView.addSubviews(likeButton, commentButton, shareButton)
         likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
-        commentButton.addTarget(self, action: #selector(didTapSend), for: .touchUpInside)
+        commentButton.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
     }
     
