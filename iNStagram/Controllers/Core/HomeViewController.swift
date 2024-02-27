@@ -134,10 +134,12 @@ class HomeViewController: UIViewController {
         username: String,
         completion: @escaping (Bool) -> Void
     ) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
         StorageManager.shared.profilePictureURL(for: username) {
             [weak self] profilePictureURL in
             guard let postUrl = URL(string: model.postURLString),
                   let profilePhotoURL = profilePictureURL else { return }
+            let isLiked = model.likers.contains(currentUsername)
             let postData: [HomeFeedCellType] = [
                 .poster(
                     viewModel: .init(
@@ -146,8 +148,8 @@ class HomeViewController: UIViewController {
                     )
                 ),
                 .post(viewModel: .init(postURL: postUrl)),
-                .action(viewModel: .init(isLiked: false)),
-                .likeCount(viewModel: .init(likers: [])),
+                .action(viewModel: .init(isLiked: isLiked)),
+                .likeCount(viewModel: .init(likers: model.likers)),
                 .caption(
                     viewModel: .init(
                         username: username,
@@ -188,7 +190,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .action(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostActionsCollectionViewCell.identifier, for: indexPath) as? PostActionsCollectionViewCell else {
@@ -202,7 +204,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 fatalError()
             }
             cell.delegate = self
-            cell.configure(with: viewModel)
+            cell.configure(with: viewModel, index: indexPath.section)
             return cell
         case .caption(let viewModel):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCaptionCollectionViewCell.identifier, for: indexPath) as? PostCaptionCollectionViewCell else {
@@ -364,14 +366,35 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
 
 //MARK: - PostCollectionViewCellDelegate
 extension HomeViewController: PostCollectionViewCellDelegate {
-    func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell) {
-        print("Did tap to like")
+    func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell, index: Int) {
+        let tuple = allPosts[index]
+        DatabaseManager.shared.updateLikeState(
+            state: .like,
+            postID: tuple.posts.id,
+            owner: tuple.owner
+        ) {
+            success in
+            guard success else {
+                print("Failed to like")
+                return
+            }
+        }
     }
 }
 
 extension HomeViewController: PostActionsCollectionViewCellDelegate {
     func postActionsCollectionViewCellDidTapLike(_ cell: PostActionsCollectionViewCell, isLiked: Bool, index: Int) {
-        // Call database to update state
+        let tuple = allPosts[index]
+        DatabaseManager.shared.updateLikeState(
+            state: isLiked ? .like: .unlike,
+            postID: tuple.posts.id,
+            owner: tuple.owner
+        ) {
+            success in
+            guard success else {
+                return
+            }
+        }
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
@@ -400,8 +423,8 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
 }
 //MARK: - PostLikesCollectionViewCellDelegate
 extension HomeViewController: PostLikesCollectionViewCellDelegate {
-    func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell) {
-        let vc = ListViewController(type: .likers(username: []))
+    func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell, index: Int) {
+        let vc = ListViewController(type: .likers(username: allPosts[index].posts.likers))
         vc.title = "Liked By"
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -412,4 +412,49 @@ final class DatabaseManager {
             completion(error == nil)
         }
     }
+    
+    //MARK: - Like
+    enum LikeState {
+        case like
+        case unlike
+    }
+    
+    public func updateLikeState(
+        state: LikeState,
+        postID: String,
+        owner: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return
+        }
+        let reference = database.collection("users")
+            .document(owner)
+            .collection("posts")
+            .document(postID)
+        getPost(with: postID, from: owner) {
+            post in
+            guard var post = post else {
+                completion(false)
+                return
+            }
+            switch state {
+            case .like:
+                if !post.likers.contains(currentUsername) {
+                    post.likers.append(currentUsername)
+                }
+            case .unlike:
+                post.likers.removeAll(where: { $0 == currentUsername })
+            }
+            guard let data = post.asDictionary() else {
+                completion(false)
+                return
+            }
+            reference.setData(data) {
+                error in
+                completion(error == nil)
+            }
+        }
+    }
 }
