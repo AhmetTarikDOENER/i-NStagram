@@ -10,7 +10,7 @@ import UIKit
 class ExploreViewController: UIViewController {
 
     private let searchViewController = UISearchController(searchResultsController: SearchResultsViewController())
-    private var posts = [Post]()
+    private var posts = [(post: Post, user: User)]()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout {
@@ -148,14 +148,14 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             fatalError()
         }
         let model = posts[indexPath.row]
-        cell.configure(with: URL(string: model.postURLString))
+        cell.configure(with: URL(string: model.post.postURLString))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let post = posts[indexPath.row]
-        let vc = PostViewController(post: post)
+        let model = posts[indexPath.row]
+        let vc = PostViewController(post: model.post, owner: model.user.username)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
