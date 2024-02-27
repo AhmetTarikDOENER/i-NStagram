@@ -13,6 +13,7 @@ class PostViewController: UIViewController {
     private let owner: String
     private var collectionView: UICollectionView?
     private var viewModels = [HomeFeedCellType]()
+    private let commentBarView = CommentBarView()
     
     //MARK: - Init
     init(post: Post, owner: String) {
@@ -31,12 +32,20 @@ class PostViewController: UIViewController {
         title = "Post"
         view.backgroundColor = .systemBackground
         configureCollectionView()
+        view.addSubview(commentBarView)
+        commentBarView.delegate = self
         fetchPost()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
+        commentBarView.frame = CGRect(
+            x: 0,
+            y: view.height - view.safeAreaInsets.bottom - 80,
+            width: view.width,
+            height: 70
+        )
     }
     
     //MARK: - Private
@@ -88,6 +97,29 @@ class PostViewController: UIViewController {
             ]
             self?.viewModels = postData
             completion(true)
+        }
+    }
+}
+
+extension PostViewController: CommentBarViewDelegate {
+    func commentBarViewDidTapSend(_ commentBarView: CommentBarView, withText text: String) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            return
+        }
+        DatabaseManager.shared.setComments(
+            comment: .init(
+                username: currentUsername,
+                comment: text,
+                dateString: .date(from: Date()) ?? ""
+            ),
+            postID: post.id,
+            owner: owner
+        ) {
+            success in
+            DispatchQueue.main.async {
+                guard success else { return }
+                
+            }
         }
     }
 }
