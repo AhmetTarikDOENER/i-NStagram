@@ -18,6 +18,7 @@
 		452085302B8E5DEA00920AD5 /* StoryHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4520852F2B8E5DEA00920AD5 /* StoryHeaderCollectionReusableView.swift */; };
 		452085322B8E600700920AD5 /* StoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452085312B8E600700920AD5 /* StoriesViewModel.swift */; };
 		452085342B8E639900920AD5 /* StoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452085332B8E639900920AD5 /* StoryCollectionViewCell.swift */; };
+		4520853C2B8E6E7C00920AD5 /* iNStagramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4520853B2B8E6E7C00920AD5 /* iNStagramTests.swift */; };
 		455E62182B8A59D90053332A /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */; };
 		455E621A2B8A59F70053332A /* LikeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */; };
 		455E621C2B8A5A130053332A /* CommentNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */; };
@@ -82,6 +83,16 @@
 		45F87E002B8549DB0092EC18 /* HomeFeedCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F87DFF2B8549DB0092EC18 /* HomeFeedCellType.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4520853D2B8E6E7C00920AD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45D5E6B72B81091100DE4D84 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45D5E6BE2B81091100DE4D84;
+			remoteInfo = iNStagram;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4501B9752B8CD7CF0084E385 /* iNSFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNSFollowButton.swift; sourceTree = "<group>"; };
 		4501B9772B8CE4E30084E385 /* ListUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUserTableViewCell.swift; sourceTree = "<group>"; };
@@ -94,6 +105,8 @@
 		4520852F2B8E5DEA00920AD5 /* StoryHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		452085312B8E600700920AD5 /* StoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewModel.swift; sourceTree = "<group>"; };
 		452085332B8E639900920AD5 /* StoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		452085392B8E6E7C00920AD5 /* iNStagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iNStagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4520853B2B8E6E7C00920AD5 /* iNStagramTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iNStagramTests.swift; sourceTree = "<group>"; };
 		455E62172B8A59D90053332A /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E62192B8A59F70053332A /* LikeNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		455E621B2B8A5A130053332A /* CommentNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentNotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -156,6 +169,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		452085362B8E6E7C00920AD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45D5E6BC2B81091100DE4D84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,6 +191,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4520853A2B8E6E7C00920AD5 /* iNStagramTests */ = {
+			isa = PBXGroup;
+			children = (
+				4520853B2B8E6E7C00920AD5 /* iNStagramTests.swift */,
+			);
+			path = iNStagramTests;
+			sourceTree = "<group>";
+		};
 		455E62162B8A59C10053332A /* NotificationCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				45D5E6C12B81091100DE4D84 /* iNStagram */,
+				4520853A2B8E6E7C00920AD5 /* iNStagramTests */,
 				45D5E6C02B81091100DE4D84 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -207,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				45D5E6BF2B81091100DE4D84 /* iNStagram.app */,
+				452085392B8E6E7C00920AD5 /* iNStagramTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,6 +376,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		452085382B8E6E7C00920AD5 /* iNStagramTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4520853F2B8E6E7C00920AD5 /* Build configuration list for PBXNativeTarget "iNStagramTests" */;
+			buildPhases = (
+				452085352B8E6E7C00920AD5 /* Sources */,
+				452085362B8E6E7C00920AD5 /* Frameworks */,
+				452085372B8E6E7C00920AD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4520853E2B8E6E7C00920AD5 /* PBXTargetDependency */,
+			);
+			name = iNStagramTests;
+			productName = iNStagramTests;
+			productReference = 452085392B8E6E7C00920AD5 /* iNStagramTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		45D5E6BE2B81091100DE4D84 /* iNStagram */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45D5E6D32B81091200DE4D84 /* Build configuration list for PBXNativeTarget "iNStagram" */;
@@ -380,6 +428,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					452085382B8E6E7C00920AD5 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 45D5E6BE2B81091100DE4D84;
+					};
 					45D5E6BE2B81091100DE4D84 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -403,11 +455,19 @@
 			projectRoot = "";
 			targets = (
 				45D5E6BE2B81091100DE4D84 /* iNStagram */,
+				452085382B8E6E7C00920AD5 /* iNStagramTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		452085372B8E6E7C00920AD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45D5E6BD2B81091100DE4D84 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,6 +481,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		452085352B8E6E7C00920AD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4520853C2B8E6E7C00920AD5 /* iNStagramTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45D5E6BB2B81091100DE4D84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -495,6 +563,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4520853E2B8E6E7C00920AD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45D5E6BE2B81091100DE4D84 /* iNStagram */;
+			targetProxy = 4520853D2B8E6E7C00920AD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		45D5E6CD2B81091200DE4D84 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -507,6 +583,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		452085402B8E6E7C00920AD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N2G2NDDG29;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahmettarik.iNStagramTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iNStagram.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iNStagram";
+			};
+			name = Debug;
+		};
+		452085412B8E6E7C00920AD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N2G2NDDG29;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ahmettarik.iNStagramTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iNStagram.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iNStagram";
+			};
+			name = Release;
+		};
 		45D5E6D12B81091200DE4D84 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -691,6 +805,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4520853F2B8E6E7C00920AD5 /* Build configuration list for PBXNativeTarget "iNStagramTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				452085402B8E6E7C00920AD5 /* Debug */,
+				452085412B8E6E7C00920AD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		45D5E6BA2B81091100DE4D84 /* Build configuration list for PBXProject "iNStagram" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
