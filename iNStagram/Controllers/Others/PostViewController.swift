@@ -14,6 +14,8 @@ class PostViewController: UIViewController {
     private var collectionView: UICollectionView?
     private var viewModels = [HomeFeedCellType]()
     private let commentBarView = CommentBarView()
+    private var observer: NSObjectProtocol?
+    private var hideObserver: NSObjectProtocol?
     
     //MARK: - Init
     init(post: Post, owner: String) {
@@ -35,6 +37,7 @@ class PostViewController: UIViewController {
         view.addSubview(commentBarView)
         commentBarView.delegate = self
         fetchPost()
+        observeKeyboardFrameChange()
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,6 +102,41 @@ class PostViewController: UIViewController {
             completion(true)
         }
     }
+    
+    private func observeKeyboardFrameChange() {
+        observer = NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil,
+            queue: .main
+        ) {
+            notification in
+            guard let userInfo = notification.userInfo,
+                  let height = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return }
+            UIView.animate(withDuration: 0.1) {
+                self.commentBarView.frame = CGRect(
+                    x: 0,
+                    y: self.view.height - height - 70,
+                    width: self.view.width,
+                    height: 70
+                )
+            }
+        }
+        hideObserver = NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillHideNotification,
+            object: nil,
+            queue: .main
+        ) {
+            _ in
+            UIView.animate(withDuration: 0.1) {
+                self.commentBarView.frame = CGRect(
+                    x: 0,
+                    y: self.view.height - self.view.safeAreaInsets.bottom - 70,
+                    width: self.view.width,
+                    height: 70
+                )
+            }
+        }
+    }
 }
 
 extension PostViewController: CommentBarViewDelegate {
@@ -118,7 +156,6 @@ extension PostViewController: CommentBarViewDelegate {
             success in
             DispatchQueue.main.async {
                 guard success else { return }
-                
             }
         }
     }

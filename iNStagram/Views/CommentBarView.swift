@@ -36,7 +36,7 @@ final class CommentBarView: UIView, UITextFieldDelegate {
         clipsToBounds = true
         addSubviews(sendButton, field)
         field.delegate = self
-        sendButton.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(didTapSend), for: .touchUpInside)
         backgroundColor = .tertiarySystemBackground
     }
     
@@ -48,7 +48,7 @@ final class CommentBarView: UIView, UITextFieldDelegate {
         super.layoutSubviews()
         sendButton.sizeToFit()
         sendButton.frame = CGRect(
-            x: width - sendButton.width - 6,
+            x: (width - sendButton.width) - 10,
             y: (height - sendButton.height) / 2,
             width: sendButton.width + 4,
             height: sendButton.height
@@ -61,15 +61,17 @@ final class CommentBarView: UIView, UITextFieldDelegate {
         )
     }
 
-    @objc private func didTapComment() {
+    @objc private func didTapSend() {
         guard let text = field.text, 
               !text.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         delegate?.commentBarViewDidTapSend(self, withText: text)
+        field.resignFirstResponder()
+        field.text = nil
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         field.resignFirstResponder()
-        didTapComment()
+        didTapSend()
         return true
     }
 }
